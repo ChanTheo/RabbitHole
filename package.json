@@ -1,0 +1,26 @@
+{
+  "name": "rabbit_hole",
+  "version": "1.0.0",
+  "description": "Hello world",
+  "main": "index.js",
+  "dependencies": {
+    "canvas": "^2.6.1",
+    "face-api.js": "^0.22.1"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChanTheo/RabbitHole.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ChanTheo/RabbitHole/issues"
+  },
+  "homepage": "https://github.com/ChanTheo/RabbitHole#readme"
+}
