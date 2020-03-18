@@ -21,6 +21,8 @@ import PlayVideo from "./PlayVideo";
 function App() {
   const { state, setState, register, login, logout } = useApplicationData();
 
+
+
   return (
     <Router>
       <div className="App">
