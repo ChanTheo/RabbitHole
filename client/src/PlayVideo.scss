@@ -1,0 +1,25 @@
+.mainVideoPlayer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.personalPlayList {
+  width: 100%;
+
+  ul {
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    flex-flow: wrap;
+    justify-content: space-around;
+    align-items: flex-start;
+
+    li {
+      img {
+        margin-right: 10px;
+      }
+    }
+  }
+}
