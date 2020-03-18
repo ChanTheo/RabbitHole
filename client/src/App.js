@@ -23,32 +23,36 @@ function App() {
 
   return (
     <Router>
-      <Switch>
-        <Route path="/login">
-          <Login login={login} />
-        </Route>
-        <Route path="/register">
-          <Register register={register} />
-        </Route>
-        <Route path="/Logout">{/* <Logout /> */}</Route>
-        <Route path="/">
-          <Home logout={logout} user={state.user} />
-        </Route>
-      </Switch>
-
-      <main className="layout">
-        <div className="App">
-          <h1> </h1>
+      <div className="App">
+        <main className="layout">
           <Header
             user={state.user}
             login={login}
             register={register}
             logout={logout}
           />
-          <PlayVideo />
-          <Webcam user={state.user} />
-        </div>
-      </main>
+          <Switch>
+            <Route path="/login">
+              <Login login={login} />
+            </Route>
+            <Route path="/register">
+              <Register register={register} />
+            </Route>
+            <Route path="/logout">{/* <Logout /> */}</Route>
+            <Route path="/playvideo">
+              <Webcam user={state.user} />
+              <PlayVideo />
+            </Route>
+            <Route path="/webcam">
+              <Webcam user={state.user} />
+            </Route>
+            <Route path="/">
+              <Home logout={logout} user={state.user} />
+            </Route>
+          </Switch>
+          <h1> </h1>
+        </main>
+      </div>
     </Router>
   );
 }

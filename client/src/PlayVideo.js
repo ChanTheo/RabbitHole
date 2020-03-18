@@ -83,7 +83,8 @@ const PlayVideo = () => {
 
   return (
     <section className="personalPlayList">
-      <h2>Your current Mood:</h2>
+      <h2>Your current Mood: 😊</h2>
+      {/* <MoodDetector /> */}
       <div className="mainVideoPlayer">
         <YouTube
           className="container"
