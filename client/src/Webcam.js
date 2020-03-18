@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import * as faceapi from "face-api.js"; // npm i face-api.js
 
 export default function Webcam (props) {
-	// const [canvas, setCanvas] = useState(undefined);
-  // const [loading, setLoading] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-	const [videoCanvas, setVideoCanvas] = useState(undefined);
-  const [currentEmoji, setCurrentEmoji] = useState("");
+  console.log("webcam", props)
+	const [canvas, setCanvas] = useState(undefined);
+  const [loading, setLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
+	// const [videoCanvas, setVideoCanvas] = useState(undefined);
+  const [userMood, setUserMood] = useState(null);
   
   // This loads the models
   useEffect(() => {
@@ -21,7 +22,16 @@ export default function Webcam (props) {
       .then(error => console.log("FaceExpression Model Loaded", error));
   }, []);
 
-
+// These are emoji's that match the 7 expressions the model can output
+const moods = {
+  neutral: "😐",
+  angry: "😡",
+  happy: "😁",
+  sad: "😢",
+  fearful: "😱",
+  disgusted: "🤢",
+  surprised: "😲" 
+}
 
   
 	const startVideo = () => {
@@ -45,38 +55,50 @@ export default function Webcam (props) {
           .then(faceapiResults => {
             console.log(faceapiResults)
             // need to cycle through the results.expressions after checking if they exists
+            let currentEmotion = "neutral"
+            // nuetral is the most common so it is the place holder
             if(faceapiResults){
-              
+              for(const emotion in faceapiResults.expressions){
+                if(faceapiResults.expressions[emotion] > faceapiResults.expressions[currentEmotion]){
+                  currentEmotion = emotion
+                }
+              }
             }
+            setUserMood(moods[currentEmotion])
+            console.log("User's current emotion is:" + currentEmotion)
           })
 
     }, 1800)
+    // here we will do some logic to start playing youtube video
+
 
   }
   
   return(
 <section className="webcam_container">
-					<h1> Welcome to the Rabbit Hole: {state.user.user_name ? state.user.user_name : null} </h1>
+					<h1> Welcome to the Rabbit Hole:  </h1>
+          {/* {props.user.user_name ? props.user.user_name : null} */}
 					<div>
-						<button onClick={startVideoEmoji}>1: Turn on Webcam</button>
+						<button onClick={startVideo}>1: Turn on Webcam</button>
 						<button onClick={getIntialMood}>2: Find out your mood!</button>
 					</div>
-					<div>
-						<span style={{ fontSize: "4em" }}>{currentEmoji}</span>
+
+					<div className="userMood_emoji">
+						<span style={{ fontSize: "4em" }}>{userMood}</span>
 					</div>
-					<div className="testImage">
+					<div className="video_canvas">
 						<canvas
             // eventually move all inline styling to scss file 
 							style={{ width: 800, height: 500 }}
-							width="640px"
-							height="480px"
-							id="test_canvas_video_emoji"
+							width="800px"
+							height="500px"
+							id="user_camera_canvas"
 						></canvas>
 						<video
             // eventually move all inline styling to scss file 
-							style={{ width: 800, height: 500  }}
-							width="640px"
-							height="480px"
+              style={{ width: 800, height: 500, backgroundColor: 'black'}}
+							width="800px"
+							height="500px"
 							autoPlay
 							id="user_camera"
 						></video>

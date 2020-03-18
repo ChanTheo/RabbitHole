@@ -47,14 +47,16 @@ const useApplicationData = () => {
 
   }
 
+
+
   function login(email, password) {
     return axios({
       method: "GET",
       url: "/users"
     }).then(response => {
       const users = response.data;
-      const user = users.map(user => user.password === password && user.email === email)
-      console.log("login", users)
+      const user = users.find(user => user.password === password && user.email === email)
+      console.log("login", user)
       if(user){
         setState({ ...state, user: user })
       }

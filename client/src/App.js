@@ -43,24 +43,9 @@ function App() {
 
   return (
     <Router>
-      <main className="layout">
-        <div className="App">
-          <h1> </h1>
-          <Header
-            user={state.user}
-            login={login}
-            register={register}
-          logout={logout}
-          />
-         <Webcam 
-         user={state.user}
-         />
-        </div>
-
-      </main>
       <Switch>
         <Route path="/login">
-          <Login login={login}/>
+          <Login login={login} />
         </Route>
         <Route path="/register">
           <Register register={register} />
@@ -70,11 +55,30 @@ function App() {
           {/* <Logout /> */}
         </Route>
         <Route path="/">
-          <Home logout={logout}/>
+          <Home 
+          logout={logout} 
+          user={state.user}
+          />
         </Route>
       </Switch>
-    </Router>
+    
+    <main className="layout">
+      <div className="App">
+        <h1> </h1>
+        <Header
+          user={state.user}
+          login={login}
+          register={register}
+          logout={logout}
+        />
+        <Webcam
+          user={state.user}
+        />
+      </div>
 
+    </main>
+      
+    </Router>
 
   );
 }
