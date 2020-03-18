@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 
 // npm install react-router-dom
-
-
 import {
   BrowserRouter as Router,
   Switch,
@@ -22,6 +20,7 @@ import Home from "./Header/Home"
 import Login from "./Header/Login"
 import Logout from "./Header/Logout"
 import Register from "./Header/Register"
+import Webcam from "./Webcam"
 // import Button from "../Button"
 
 function App() {
@@ -53,8 +52,7 @@ function App() {
             register={register}
           logout={logout}
           />
-          <video width="320" height="240" id="youtube_video" src="https://www.youtube.com/watch?v=_OBlgSz8sSM" />
-          <canvas id="myCanvas" />
+         <Webcam />
         </div>
 
       </main>
