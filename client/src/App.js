@@ -27,17 +27,17 @@ function App() {
   const { state, setState, register, login, logout } = useApplicationData();
 
   //  This loads the models 
-  useEffect(() => {
-    faceapi.nets.faceLandmark68Net
-      .loadFromUri("/models")
-      .then(error => console.log("FaceLandmark Model Loaded", error));
-    faceapi.nets.ssdMobilenetv1
-      .loadFromUri("/models")
-      .then(error => console.log("ssdMobilenetv1 Model Loaded", error));
-    faceapi.nets.faceExpressionNet
-      .loadFromUri("/models")
-      .then(error => console.log("FaceExpression Model Loaded", error));
-  }, []);
+  // useEffect(() => {
+  //   faceapi.nets.faceLandmark68Net
+  //     .loadFromUri("/models")
+  //     .then(error => console.log("FaceLandmark Model Loaded", error));
+  //   faceapi.nets.ssdMobilenetv1
+  //     .loadFromUri("/models")
+  //     .then(error => console.log("ssdMobilenetv1 Model Loaded", error));
+  //   faceapi.nets.faceExpressionNet
+  //     .loadFromUri("/models")
+  //     .then(error => console.log("FaceExpression Model Loaded", error));
+  // }, []);
 
 
 
@@ -52,7 +52,9 @@ function App() {
             register={register}
           logout={logout}
           />
-         <Webcam />
+         <Webcam 
+         user={state.user}
+         />
         </div>
 
       </main>

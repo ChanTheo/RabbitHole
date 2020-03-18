@@ -8,6 +8,7 @@ export default function Webcam (props) {
 	const [videoCanvas, setVideoCanvas] = useState(undefined);
   const [currentEmoji, setCurrentEmoji] = useState("");
   
+  // This loads the models
   useEffect(() => {
     faceapi.nets.faceLandmark68Net
       .loadFromUri("/models")
@@ -20,205 +21,66 @@ export default function Webcam (props) {
       .then(error => console.log("FaceExpression Model Loaded", error));
   }, []);
 
-  const testFace = () => {
-		setIsLoading(true);
 
-		const input = document.getElementById("test");
-		const canvas = document.getElementById("test_canvas");
-		const displaySize = { width: input.width, height: input.height };
-		faceapi.matchDimensions(canvas, displaySize);
 
-		// const detections = faceapi.detectAllFaces(input).then(e => console.log(e));
-		// const detections = faceapi.detectAllFaces.withFaceLandmarks()(input).then(e => console.log(e));
-		faceapi
-			.detectAllFaces(input)
-			.withFaceLandmarks()
-			.then(detections => {
-				console.log(detections)
-				return faceapi.resizeResults(detections, displaySize);
-			})
-			.then(resizedResults => {
-				faceapi.draw.drawDetections(canvas, resizedResults);
-				faceapi.draw.drawFaceLandmarks(canvas, resizedResults);
-				setIsLoading(false);
-			});
-	};
-
-	const testFaceDeux = () => {
-		setIsLoading(true);
-
-		const input = document.getElementById("test2");
-		const canvas = document.getElementById("test_canvas2");
-		const displaySize = { width: input.width, height: input.height };
-		const minProbability = 0.5;
-
-		faceapi.matchDimensions(canvas, displaySize);
-
-		// const detections = faceapi.detectAllFaces(input).then(e => console.log(e));
-		// const detections = faceapi.detectAllFaces.withFaceLandmarks()(input).then(e => console.log(e));
-		faceapi
-			.detectAllFaces(input)
-			.withFaceLandmarks()
-			.withFaceExpressions()
-			.then(detections => {
-				console.log(detections)
-				return faceapi.resizeResults(detections, displaySize);
-			})
-			.then(resizedResults => {
-				console.log(resizedResults)
-				faceapi.draw.drawDetections(canvas, resizedResults);
-				faceapi.draw.drawFaceExpressions(
-					canvas,
-					resizedResults,
-					minProbability
-				);
-				setIsLoading(false);
-			});
-	};
-
-	const testFaceVideo = () => {
-		const video = document.getElementById("camera");
-		// const canvas = faceapi.createCanvasFromMedia(
-		// 	document.getElementById("camera")
-		// );
-
-		const canvas = document.getElementById("test_canvas_video");
-		const context = canvas.getContext("2d");
-		const displaySize = { width: 640, height: 480 };
-		const minProbability = 0.5;
-
-		const scanInterval = setInterval(() => {
-			faceapi
-				.detectSingleFace(video)
-				.withFaceLandmarks()
-				.withFaceExpressions()
-				.then(detections => {
-					console.log(detections);
-					if (detections) {
-						return faceapi.resizeResults(detections, displaySize);
-					}
-				})
-				.then(resizedResults => {
-					if (resizedResults) {
-						context.clearRect(0, 0, canvas.width, canvas.height);
-
-						faceapi.draw.drawDetections(canvas, resizedResults);
-						faceapi.draw.drawFaceLandmarks(canvas, resizedResults);
-						faceapi.draw.drawFaceExpressions(
-							canvas,
-							resizedResults,
-							minProbability
-						);
-					}
-				})
-				.then(() => setVideoCanvas(canvas));
-		}, 100);
-	};
-
-	const testFaceVideoEmoji = () => {
-		const video = document.getElementById("camera_emoji");
-		const emojiMatch = {
-			neutral: "😐",
-			happy: "😊",
-			sad: "😟",
-			angry: "😠",
-			fearful: "😱",
-			disgusted: "🤢",
-			surprised: "😲"
-		};
-		const scanInterval = setInterval(() => {
-			faceapi
-				.detectSingleFace(video)
-				.withFaceLandmarks()
-				.withFaceExpressions()
-				.then(detections => {
-					// console.log(detections);
-					let emotion = "neutral";
-					if (detections) {
-						for (const emotionKey in detections.expressions) {
-							emotion =
-								detections.expressions[emotionKey] >
-								detections.expressions[emotion]
-									? emotionKey
-									: emotion;
-						}
-						console.log(emotion);
-					}
-					// const emotion = Object.keys(detections.expressions)[0];
-					setCurrentEmoji(emojiMatch[emotion]);
-				});
-		}, 100);
-	};
-
+  
 	const startVideo = () => {
 		const constraints = { video: true };
-		const video = document.getElementById("camera");
+		const video = document.getElementById("user_camera");
 		navigator.mediaDevices.getUserMedia(constraints).then(stream => {
 			video.srcObject = stream;
 		});
-	};
-	const startVideoEmoji = () => {
-		const constraints = { video: true };
-		const video = document.getElementById("camera_emoji");
-		navigator.mediaDevices.getUserMedia(constraints).then(stream => {
-			video.srcObject = stream;
-		});
-	};
+  };
+  
+  const getIntialMood = function () {
+    // get user camera
+    const webcam = document.getElementById("user_camera")
+
+    // scan face once (wait a few seconds after the click event, this will only happen once)
+    setTimeout(() => {
+      faceapi
+          .detectSingleFace(webcam)
+          .withFaceLandmarks()
+          .withFaceExpressions()
+          .then(faceapiResults => {
+            console.log(faceapiResults)
+            // need to cycle through the results.expressions after checking if they exists
+            if(faceapiResults){
+              
+            }
+          })
+
+    }, 1800)
+
+  }
   
   return(
 <section className="webcam_container">
-<div className="App">
-			<header>
-				<section>
-					<h2>Test of video feed !</h2>
+					<h1> Welcome to the Rabbit Hole: {state.user.user_name ? state.user.user_name : null} </h1>
 					<div>
-						<button onClick={startVideo}>Start Video feed</button>
-						<button onClick={testFaceVideo}>Start Capture</button>
-					</div>
-					<div className="testImage">
-						<canvas
-							style={{ width: 640, height: 480 }}
-							width="640px"
-							height="480px"
-							id="test_canvas_video"
-						></canvas>
-						<video
-							style={{ width: 640, height: 480, backgroundColor: "black" }}
-							width="640px"
-							height="480px"
-							autoPlay
-							id="camera"
-						></video>
-					</div>
-				</section>
-				<section>
-					<h2>Test of video emoji</h2>
-					<div>
-						<button onClick={startVideoEmoji}>Start Video feed</button>
-						<button onClick={testFaceVideoEmoji}>Start Capture</button>
+						<button onClick={startVideoEmoji}>1: Turn on Webcam</button>
+						<button onClick={getIntialMood}>2: Find out your mood!</button>
 					</div>
 					<div>
 						<span style={{ fontSize: "4em" }}>{currentEmoji}</span>
 					</div>
 					<div className="testImage">
 						<canvas
-							style={{ width: 640, height: 480 }}
+            // eventually move all inline styling to scss file 
+							style={{ width: 800, height: 500 }}
 							width="640px"
 							height="480px"
 							id="test_canvas_video_emoji"
 						></canvas>
 						<video
-							style={{ width: 640, height: 480, backgroundColor: "black" }}
+            // eventually move all inline styling to scss file 
+							style={{ width: 800, height: 500  }}
 							width="640px"
 							height="480px"
 							autoPlay
-							id="camera_emoji"
+							id="user_camera"
 						></video>
 					</div>
 				</section>
-			</header>
-		</div>
-
-</section>
   );
 }
