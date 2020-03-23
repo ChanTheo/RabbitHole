@@ -38,12 +38,18 @@ module.exports = knex => {
       .where("Video.emotion_id", "=", id);
   };
 
+  //ys:
+  const getUser = () => {
+    return knex.select("*").from("User");
+  };
+
   return {
     getUsers,
     // getQuotesForUser,
     registerUser,
     getVideos,
     getEmotions,
-    getVideoForEmotion
+    getVideoForEmotion,
+    getUser
   };
 };
