@@ -17,9 +17,12 @@ import Register from "./Header/Register";
 import Webcam from "./Webcam";
 // import Button from "../Button"
 import PlayVideo from "./PlayVideo";
+import Bargraph from "./Bargraph/index"
+import Profile from "./Profile/index"
+import Graph from "./Graph/index"
 
 function App() {
-  const { state, setState, register, login, logout } = useApplicationData();
+  const { state, setState, register, login, logout, setExpressions, setUserMood } = useApplicationData();
 
 
 
@@ -40,7 +43,7 @@ function App() {
             <Route path="/register">
               <Register register={register} />
             </Route>
-            <Route path="/logout">{/* <Logout /> */}</Route>
+            <Route path="/logout"></Route>
             <Route path="/playvideo">
               <Webcam user={state.user} />
               <PlayVideo />
@@ -50,9 +53,28 @@ function App() {
             </Route>
             <Route path="/">
               <Home logout={logout} user={state.user} />
+              <Webcam 
+              user={state.user} 
+              setExpressions={setExpressions}
+              setUserMood={setUserMood}
+              mood={state.userMood}
+
+              />
+              <PlayVideo 
+              user={state.user} 
+              mood={state.userMood}
+              />
+              <Graph
+              expressions={state.expressions}
+              
+              />
             </Route>
+            <Route path="/users/:id/profile">
+              <Profile />
+
+            </Route>
+
           </Switch>
-          <h1> </h1>
         </main>
       </div>
     </Router>

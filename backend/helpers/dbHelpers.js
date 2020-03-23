@@ -19,9 +19,38 @@ module.exports = knex => {
     // will return the id for login / cookie session 
   }
 
+  const createWatchLogEntry = function (surprised, disgusted, neutral, sad, fearful, angry, happy) {
+    return knex("log_entries")
+    .insert({
+      surprised_percentage: surprised, 
+      disgusted_percentage: disgusted,
+      neutral_percentage: neutral,
+      sad_percentage: sad,
+      fearful_perentage: fearful,
+      angry_percentage: angry,
+      happy_percentage: happy,})
+    .returning("*")
+    .then(res => res[0])
+  }
+
+  const getUserHistory = function (id) {
+    return knex("users")
+
+  }
+
+  const getUserbyUserName = function (username) {
+    return knex("users")
+      .select("*")
+      .where("user_name", "=", username)
+      .returning("*")
+      .then(res => console.log(res))
+  }
+
   return {
     getUsers,
     getQuotesForUser,
-    registerUser
+    registerUser,
+    createWatchLogEntry,
+    getUserbyUserName,
   };
 };

@@ -41,7 +41,7 @@ const PlayVideo = () => {
   const [youtubeId, setYoutubeId] = useState("1VVvXojzgDs");
   const [number, setNumber] = useState(1);
 
-  // console.log("videos", videos);
+
   const opts = {
     height: "300",
     width: "450",
@@ -81,10 +81,21 @@ const PlayVideo = () => {
     }
   };
 
+  const getNextVideo = function (mood) {
+    return axios({
+      method: "GET",
+      url: `/videoes/${mood}`
+    })
+    .then(response => {
+      console.log(response)
+      // set youtube id here
+    })
+  }
+
+  
+
   return (
     <section className="personalPlayList">
-      <h2>Your current Mood: 😊</h2>
-      {/* <MoodDetector /> */}
       <div className="mainVideoPlayer">
         <YouTube
           className="container"
@@ -93,22 +104,6 @@ const PlayVideo = () => {
           onEnd={playNextAuto}
         />
       </div>
-
-      <h2>Watching Log</h2>
-      <ul>
-        {videos.map(video => (
-          <li>
-            <img
-              key={video.id}
-              src={video.img}
-              width="150"
-              height="100"
-              title={video.videoId}
-              onClick={() => changeVideoImage(video.videoId)}
-            />
-          </li>
-        ))}
-      </ul>
     </section>
   );
 };

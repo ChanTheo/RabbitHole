@@ -6,7 +6,9 @@ const useApplicationData = () => {
   const [state, setState] = useState({
     user: null,
     loading: true,
-    
+    expressions: null,
+    userMood: null,
+
 
   });
 
@@ -52,23 +54,50 @@ const useApplicationData = () => {
   function login(email, password) {
     return axios({
       method: "GET",
-      url: "/users"
+      url: "/users",
+      data: {email, password}
     }).then(response => {
       const users = response.data;
       const user = users.find(user => user.password === password && user.email === email)
-      console.log("login", user)
-      if(user){
+      if (user) {
         setState({ ...state, user: user })
       }
-      // use .find to find the user where email === password 
 
     })
   }
 
-  function logout(user){
-    // delete cookie 
-    setState({...state, user: null})
+  function logout() {
+    axios.get({
+      url: "users/logout"
+    })
+    setState({ ...state, user: null })
 
+  }
+
+  function setExpressions(
+    surprised_percent,
+    disgusted_percent,
+    neutral_percent,
+    sad_percent,
+    fearful_percent,
+    angry_percent,
+    happy_percent) {
+
+    const expressionsPercentage = {
+      surprised_percent,
+      disgusted_percent,
+      neutral_percent,
+      sad_percent,
+      fearful_percent,
+      angry_percent,
+      happy_percent
+    }
+    setState({ ...state, expressions: expressionsPercentage })
+
+  }
+
+  function setUserMood (mood) {
+    setState({...state, userMood: mood})
   }
 
   return {
@@ -76,7 +105,9 @@ const useApplicationData = () => {
     setState,
     register,
     login,
-    logout
+    logout,
+    setExpressions,
+    setUserMood
   };
 };
 
