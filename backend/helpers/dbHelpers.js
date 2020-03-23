@@ -28,11 +28,22 @@ module.exports = knex => {
   const getEmotions = () => {
     return knex.select("*").from("Emotion");
   };
+
+  //ys:
+  const getVideoForEmotion = id => {
+    return knex
+      .select("*")
+      .from("Emotion")
+      .innerJoin("Video", "Emotion.id", "Video.emotion_id")
+      .where("Video.emotion_id", "=", id);
+  };
+
   return {
     getUsers,
     // getQuotesForUser,
     registerUser,
     getVideos,
-    getEmotions
+    getEmotions,
+    getVideoForEmotion
   };
 };

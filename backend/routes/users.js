@@ -6,7 +6,8 @@ module.exports = ({
   getQuotesForUser,
   registerUser,
   getVideos,
-  getEmotions
+  getEmotions,
+  getVideoForEmotion
 }) => {
   /* GET users listing. */
   router.get("/", function(req, res, next) {
@@ -38,6 +39,12 @@ module.exports = ({
   //ys
   router.get("/emotions", function(req, res) {
     getEmotions().then(result => res.json(result));
+  });
+
+  //ys
+  router.get("/:id/Videos", function(req, res) {
+    const { id } = req.params;
+    getVideoForEmotion(id).then(result => res.json(result));
   });
   return router;
 };
