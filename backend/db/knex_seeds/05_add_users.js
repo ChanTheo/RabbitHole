@@ -1,11 +1,13 @@
 exports.seed = function(knex) {
   // Deletes ALL existing entries
   return Promise.all([
-    knex("User").del(),
+    knex("users").del(), //users
     // knex.raw("ALTER SEQUENCE Emotion_id_seq RESTART WITH 1"),
-    knex("User").then(function() {
+    knex("users").then(function() {
+      //users
       // Inserts seed entries
-      return knex("User").insert([
+      return knex("users").insert([
+        //users
         {
           id: 1,
           name: "Bob",

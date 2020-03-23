@@ -1,18 +1,20 @@
 exports.seed = function(knex) {
   // Deletes ALL existing entries
   return Promise.all([
-    knex("Video").del(),
+    knex("videos").del(), //videos
     // knex.raw("ALTER SEQUENCE Video_id_seq RESTART WITH 1"),
-    knex("Video").then(function() {
+    knex("videos").then(function() {
+      //videos
       // Inserts seed entries
-      return knex("Video").insert([
+      return knex("videos").insert([
+        //videos
         {
           id: 1,
           url: "https://www.youtube.com/embed/Yi0OZe7QFBg",
           title: "neutral",
           description: "neutral",
           duration: "1 min",
-          videoId: "Yi0OZe7QFBg",
+          yt_video_id: "Yi0OZe7QFBg",
           img: "https://img.youtube.com/vi/1VVvXojzgDs/default.jpg",
           emotion_id: 1
         },
@@ -22,7 +24,7 @@ exports.seed = function(knex) {
           title: "neutral",
           description: "neutral",
           duration: "1 min",
-          videoId: "iaQed_Xdyvw",
+          yt_video_id: "iaQed_Xdyvw",
           img: "https://img.youtube.com/vi/iaQed_Xdyvw/default.jpg",
           emotion_id: 1
         },
@@ -32,7 +34,7 @@ exports.seed = function(knex) {
           title: "neutral",
           description: "neutral",
           duration: "1 min",
-          videoId: "5DqTuWve9t8",
+          yt_video_id: "5DqTuWve9t8",
           img: "https://img.youtube.com/vi/5DqTuWve9t8/default.jpg",
           emotion_id: 1
         },
@@ -42,7 +44,7 @@ exports.seed = function(knex) {
           title: "neutral",
           description: "neutral",
           duration: "1 min",
-          videoId: "ar-GwpxHd14",
+          yt_video_id: "ar-GwpxHd14",
           img: "https://img.youtube.com/vi/ar-GwpxHd14/default.jpg",
           emotion_id: 1
         },
@@ -52,7 +54,7 @@ exports.seed = function(knex) {
           title: "neutral",
           description: "neutral",
           duration: "1 min",
-          videoId: "d3EHZo6CIl8",
+          yt_video_id: "d3EHZo6CIl8",
           img: "https://img.youtube.com/vi/d3EHZo6CIl8/default.jpg",
           emotion_id: 1
         },
@@ -63,7 +65,7 @@ exports.seed = function(knex) {
           title: "angry",
           description: "angry",
           duration: "1 min",
-          videoId: "agQxuaSnR9g",
+          yt_video_id: "agQxuaSnR9g",
           img: "https://img.youtube.com/vi/agQxuaSnR9g/default.jpg",
           emotion_id: 2
         },
@@ -73,7 +75,7 @@ exports.seed = function(knex) {
           title: "angry",
           description: "angry",
           duration: "1 min",
-          videoId: "Bwq7h8sLObw",
+          yt_video_id: "Bwq7h8sLObw",
           img: "https://img.youtube.com/vi/Bwq7h8sLObw/default.jpg",
           emotion_id: 2
         },
@@ -83,7 +85,7 @@ exports.seed = function(knex) {
           title: "angry",
           description: "angry",
           duration: "1 min",
-          videoId: "liOBKV_PsMI",
+          yt_video_id: "liOBKV_PsMI",
           img: "https://img.youtube.com/vi/liOBKV_PsMI/default.jpg",
           emotion_id: 2
         },
@@ -93,7 +95,7 @@ exports.seed = function(knex) {
           title: "angry",
           description: "angry",
           duration: "1 min",
-          videoId: "RfMnKGtJno8",
+          yt_video_id: "RfMnKGtJno8",
           img: "https://img.youtube.com/vi/RfMnKGtJno8/default.jpg",
           emotion_id: 2
         },
@@ -103,7 +105,7 @@ exports.seed = function(knex) {
           title: "angry",
           description: "angry",
           duration: "1 min",
-          videoId: "MinEShIQHHM",
+          yt_video_id: "MinEShIQHHM",
           img: "https://img.youtube.com/vi/MinEShIQHHM/default.jpg",
           emotion_id: 2
         },
@@ -114,7 +116,7 @@ exports.seed = function(knex) {
           title: "happy",
           description: "happy",
           duration: "1 min",
-          videoId: "RGTtBVeoRTA",
+          yt_video_id: "RGTtBVeoRTA",
           img: "https://img.youtube.com/vi/RGTtBVeoRTA/default.jpg",
           emotion_id: 3
         },
@@ -124,7 +126,7 @@ exports.seed = function(knex) {
           title: "happy",
           description: "happy",
           duration: "1 min",
-          videoId: "oZRQlLPyOw4",
+          yt_video_id: "oZRQlLPyOw4",
           img: "https://img.youtube.com/vi/oZRQlLPyOw4/default.jpg",
           emotion_id: 3
         },
@@ -134,7 +136,7 @@ exports.seed = function(knex) {
           title: "happy",
           description: "happy",
           duration: "1 min",
-          videoId: "KycyslbAGaI",
+          yt_video_id: "KycyslbAGaI",
           img: "https://img.youtube.com/vi/KycyslbAGaI/default.jpg",
           emotion_id: 3
         },
@@ -144,7 +146,7 @@ exports.seed = function(knex) {
           title: "happy",
           description: "happy",
           duration: "1 min",
-          videoId: "BSwpONX7uL4",
+          yt_video_id: "BSwpONX7uL4",
           img: "https://img.youtube.com/vi/BSwpONX7uL4/default.jpg",
           emotion_id: 3
         },
@@ -154,7 +156,7 @@ exports.seed = function(knex) {
           title: "happy",
           description: "happy",
           duration: "1 min",
-          videoId: "fUbNzCqI_Z4",
+          yt_video_id: "fUbNzCqI_Z4",
           img: "hhttps://img.youtube.com/vi/fUbNzCqI_Z4/default.jpg",
           emotion_id: 3
         },
@@ -165,7 +167,7 @@ exports.seed = function(knex) {
           title: "sad",
           description: "sad",
           duration: "1 min",
-          videoId: "ndy_97isp1Q",
+          yt_video_id: "ndy_97isp1Q",
           img: "https://img.youtube.com/vi/ndy_97isp1Q/default.jpg",
           emotion_id: 4
         },
@@ -175,7 +177,7 @@ exports.seed = function(knex) {
           title: "sad",
           description: "sad",
           duration: "1 min",
-          videoId: "WDc6wIm2VoI",
+          yt_video_id: "WDc6wIm2VoI",
           img: "https://img.youtube.com/vi/WDc6wIm2VoI/default.jpg",
           emotion_id: 4
         },
@@ -185,7 +187,7 @@ exports.seed = function(knex) {
           title: "sad",
           description: "sad",
           duration: "1 min",
-          videoId: "qHE0n5c6-6g",
+          yt_video_id: "qHE0n5c6-6g",
           img: "https://img.youtube.com/vi/qHE0n5c6-6g/default.jpg",
           emotion_id: 4
         },
@@ -195,7 +197,7 @@ exports.seed = function(knex) {
           title: "sad",
           description: "sad",
           duration: "1 min",
-          videoId: "_JhaVNJb3ag",
+          yt_video_id: "_JhaVNJb3ag",
           img: "https://img.youtube.com/vi/_JhaVNJb3ag/default.jpg",
           emotion_id: 4
         },
@@ -205,7 +207,7 @@ exports.seed = function(knex) {
           title: "sad",
           description: "sad",
           duration: "1 min",
-          videoId: "6Xl5GSvyVfU",
+          yt_video_id: "6Xl5GSvyVfU",
           img: "https://img.youtube.com/vi/6Xl5GSvyVfU/default.jpg",
           emotion_id: 4
         },
@@ -216,7 +218,7 @@ exports.seed = function(knex) {
           title: "fearful",
           description: "fearful",
           duration: "1 min",
-          videoId: "B1iJoKd0TW0",
+          yt_video_id: "B1iJoKd0TW0",
           img: "https://img.youtube.com/vi/B1iJoKd0TW0/default.jpg",
           emotion_id: 5
         },
@@ -226,7 +228,7 @@ exports.seed = function(knex) {
           title: "fearful",
           description: "fearful",
           duration: "1 min",
-          videoId: "AGSr2_LW0R4",
+          yt_video_id: "AGSr2_LW0R4",
           img: "https://img.youtube.com/vi/AGSr2_LW0R4/default.jpg",
           emotion_id: 5
         },
@@ -236,7 +238,7 @@ exports.seed = function(knex) {
           title: "fearful",
           description: "fearful",
           duration: "1 min",
-          videoId: "3mWjHsqWjcs",
+          yt_video_id: "3mWjHsqWjcs",
           img: "https://img.youtube.com/vi/3mWjHsqWjcs/default.jpg",
           emotion_id: 5
         },
@@ -246,7 +248,7 @@ exports.seed = function(knex) {
           title: "fearful",
           description: "fearful",
           duration: "1 min",
-          videoId: "AwOzOZTRn54",
+          yt_video_id: "AwOzOZTRn54",
           img: "https://img.youtube.com/vi/AwOzOZTRn54/default.jpg",
           emotion_id: 5
         },
@@ -256,7 +258,7 @@ exports.seed = function(knex) {
           title: "fearful",
           description: "fearful",
           duration: "1 min",
-          videoId: "m59LFiJpn5M",
+          yt_video_id: "m59LFiJpn5M",
           img: "https://img.youtube.com/vi/m59LFiJpn5M/default.jpg",
           emotion_id: 5
         },
@@ -267,7 +269,7 @@ exports.seed = function(knex) {
           title: "disgusted",
           description: "disgusted",
           duration: "1 min",
-          videoId: "mScqow5J7zk",
+          yt_video_id: "mScqow5J7zk",
           img: "https://img.youtube.com/vi/mScqow5J7zk/default.jpg",
           emotion_id: 6
         },
@@ -277,7 +279,7 @@ exports.seed = function(knex) {
           title: "disgusted",
           description: "disgusted",
           duration: "1 min",
-          videoId: "Oei9zGB5GiY",
+          yt_video_id: "Oei9zGB5GiY",
           img: "https://img.youtube.com/vi/Oei9zGB5GiY/default.jpg",
           emotion_id: 6
         },
@@ -287,7 +289,7 @@ exports.seed = function(knex) {
           title: "disgusted",
           description: "disgusted",
           duration: "1 min",
-          videoId: "sfTOB4ZjN_c",
+          yt_video_id: "sfTOB4ZjN_c",
           img: "https://img.youtube.com/vi/sfTOB4ZjN_c/default.jpg",
           emotion_id: 6
         },
@@ -297,7 +299,7 @@ exports.seed = function(knex) {
           title: "disgusted",
           description: "disgusted",
           duration: "1 min",
-          videoId: "_urM1guMNF8",
+          yt_video_id: "_urM1guMNF8",
           img: "https://img.youtube.com/vi/_urM1guMNF8/default.jpg",
           emotion_id: 6
         },
@@ -307,7 +309,7 @@ exports.seed = function(knex) {
           title: "disgusted",
           description: "disgusted",
           duration: "1 min",
-          videoId: "iRfWwvK0u1A",
+          yt_video_id: "iRfWwvK0u1A",
           img: "https://img.youtube.com/vi/iRfWwvK0u1A/default.jpg",
           emotion_id: 6
         },
@@ -318,7 +320,7 @@ exports.seed = function(knex) {
           title: "surprised",
           description: "surprised",
           duration: "1 min",
-          videoId: "Yi0OZLJG9Q8e5fZke7QFBg",
+          yt_video_id: "Yi0OZLJG9Q8e5fZke7QFBg",
           img: "https://img.youtube.com/vi/LJG9Q8e5fZk/default.jpg",
           emotion_id: 7
         },
@@ -328,7 +330,7 @@ exports.seed = function(knex) {
           title: "surprised",
           description: "surprised",
           duration: "1 min",
-          videoId: "1I-3vJSC-Vo",
+          yt_video_id: "1I-3vJSC-Vo",
           img: "https://img.youtube.com/vi/1I-3vJSC-Vo/default.jpg",
           emotion_id: 7
         },
@@ -338,7 +340,7 @@ exports.seed = function(knex) {
           title: "surprised",
           description: "surprised",
           duration: "1 min",
-          videoId: "T99eO41xwqE",
+          yt_video_id: "T99eO41xwqE",
           img: " https://img.youtube.com/vi/T99eO41xwqE/default.jpg",
           emotion_id: 7
         },
@@ -348,7 +350,7 @@ exports.seed = function(knex) {
           title: "surprised",
           description: "surprised",
           duration: "1 min",
-          videoId: "8yrk7Sp3Xto",
+          yt_video_id: "8yrk7Sp3Xto",
           img: "https://img.youtube.com/vi/8yrk7Sp3Xto/default.jpg",
           emotion_id: 7
         },
@@ -358,7 +360,7 @@ exports.seed = function(knex) {
           title: "surprised",
           description: "surprised",
           duration: "1 min",
-          videoId: "IA5oNIOs3z8",
+          yt_video_id: "IA5oNIOs3z8",
           img: "https://img.youtube.com/vi/IA5oNIOs3z8/default.jpg",
           emotion_id: 7
         }

@@ -1,5 +1,6 @@
 exports.up = function(knex) {
-  return knex.schema.createTable("Video", t => {
+  return knex.schema.createTable("videos", t => {
+    //videos
     t.increments("id")
       .primary()
       .unsigned();
@@ -7,11 +8,11 @@ exports.up = function(knex) {
     t.string("title");
     t.string("description");
     t.string("duration");
-    t.string("videoId");
+    t.string("yt_video_id"); // yt_video_id
     t.string("img");
     t.integer("emotion_id")
       .references("id")
-      .inTable("Emotion")
+      .inTable("emotions") //emotions
       .notNull()
       .onDelete("cascade");
     t.timestamps(true, true);
@@ -19,5 +20,5 @@ exports.up = function(knex) {
 };
 
 exports.down = function(knex) {
-  return knex.schema.dropTable("Video");
+  return knex.schema.dropTable("videos"); //videos
 };

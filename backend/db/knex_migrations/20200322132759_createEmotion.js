@@ -1,5 +1,6 @@
 exports.up = function(knex) {
-  return knex.schema.createTable("Emotion", t => {
+  return knex.schema.createTable("emotions", t => {
+    //emotions
     t.increments("id")
       .primary()
       .unsigned();
@@ -10,5 +11,5 @@ exports.up = function(knex) {
 };
 
 exports.down = function(knex) {
-  return knex.schema.dropTable("Emotion");
+  return knex.schema.dropTable("emotions"); //emotions
 };
