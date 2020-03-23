@@ -9,7 +9,16 @@ router.use(cookieSession({
   maxAge: 1000 * 60 * 60 * 24
 }));
 
-module.exports = ({ getUsers, getQuotesForUser, registerUser, createWatchLogEntry, getUserByUsername }) => {
+
+module.exports = ({
+  getUsers,
+  getQuotesForUser,
+  registerUser,
+  getVideos,
+  getEmotions,
+  getVideoForEmotion,
+  getUser
+}) => {
   /* GET users listing. */
   router.get("/", function(req, res, next) {
 
@@ -18,10 +27,10 @@ module.exports = ({ getUsers, getQuotesForUser, registerUser, createWatchLogEntr
       res.json(result)})
   });
 
-  router.get("/:id/quotes", function(req, res) {
-    const { id } = req.params;
-    getQuotesForUser(id).then(result => res.json(result));
-  });
+  // router.get("/:id/quotes", function(req, res) {
+  //   const { id } = req.params;
+  //   getQuotesForUser(id).then(result => res.json(result));
+  // });
 
   router.post("/register", function(req, res) {
     const email = req.body.email
@@ -29,7 +38,7 @@ module.exports = ({ getUsers, getQuotesForUser, registerUser, createWatchLogEntr
     const password = req.body.password
     registerUser(email, username, password)
       .then(response => res.json(response))
-      .catch(e => console.log(e))
+      .catch(e => console.log(e));
   });
 
   router.post("/login", function(req, res ){

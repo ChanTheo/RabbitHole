@@ -3,7 +3,8 @@ exports.up = function(knex) {
     t.increments("id")
       .primary()
       .unsigned();
-    t.string("user_name");
+    t.string("name");
+    t.string("username");
     t.string("email");
     t.string("password");
     t.timestamps(true, true);
