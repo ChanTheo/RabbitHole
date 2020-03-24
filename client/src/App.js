@@ -34,13 +34,14 @@ function App() {
     <Router>
       <div className="App">
         <main className="layout">
+          <div className="top-header">
           <Header
             user={state.user}
             login={login}
             register={register}
             logout={logout}
           />
-
+          </div>
           <Switch>
             <Route path="/login">
               <Login login={login} />

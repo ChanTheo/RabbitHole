@@ -1,18 +1,18 @@
 import React from "react";
-// import "./TodoInsert.scss";
+
 // Importing components
 import Home from "./Home";
 import Login from "./Login";
 import Logout from "./Logout";
 import Register from "./Register";
 import Button from "../Button";
-
+import "./Header.scss";
 // npm install react-router-dom
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 export default function Header(props) {
   return (
-    <header>
+    <header className="top">
       <h1>
         {" "}
         <Link to="/" className="navbar-title">
