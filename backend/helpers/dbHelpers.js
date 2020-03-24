@@ -56,17 +56,23 @@ module.exports = knex => {
 
   //ys:
   const getEmotions = () => {
-    return knex.select("*").from("emotions");
+    return knex.select("*").from("emotions").then(res => res);
+  };
+
+  const getEmotionID =  mood => {
+    let id;
+
+    
+   return emotions.find(emotion => emotion.emoji = mood);
   };
 
   //ys:
   const getVideosForEmotion = id => {
-    //getVideosForEmotion
     return knex
       .select("*")
       .from("emotions")
       .innerJoin("videos", "emotions.id", "videos.emotion_id")
-      .where("videos.emotion_id", "=", id);
+      .where("videos.emotion_id", "=", id)
   };
 
   const getRandomVideoFromEmotion = () => {
@@ -81,11 +87,6 @@ module.exports = knex => {
     return knex.select("*").from("users");
   };
 
-  const getEmotionID = mood => {
-    const emotions = getEmotions();
-    console.log("getEmotionID", emotions);
-    emotions.map(emotion => emotion);
-  };
 
   const createWatchLogEntry = ({ data }, watchLogID, videoID) => {
     const {

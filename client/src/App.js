@@ -64,6 +64,7 @@ function App() {
               {state.userMood &&
               <PlayVideo 
               user={state.user} 
+              setUserMood={setUserMood}
               mood={state.userMood}
               />}
               <Webcam 

@@ -84,8 +84,10 @@ const PlayVideo = (props) => {
   // do we want on load to get this video
   const getNextVideo = function () {
     console.log(props.mood)
-    const emotion_id = "";
     const userEmoji = props.mood;
+    let emotion_id = 1;
+    let foundMatch = false;
+
     const moods = {
       neutral: "😐",
       angry: "😡",
@@ -95,26 +97,27 @@ const PlayVideo = (props) => {
       disgusted: "🤢",
       surprised: "😲"
     };
-    for(const mood in moods) {
-      
-      if(moods[mood] === moods[userEmoji]) {
-        console.log("moods[mood", moods[mood])
-        console.log("moods[userEmoji]", moods[userEmoji])
-        emotion_id = mood
+
+    for (const mood in moods) {
+      if (moods[mood] === userEmoji) {
+        foundMatch = true
+      }
+      if (!foundMatch) {
+        emotion_id++;
       }
     }
-    console.log(emotion_id)
     return axios({
       method: "GET",
-      url: `api/videos/emotions/:${emotion_id}/random`
+      url: `/api/videos/emotions/random/${emotion_id}`
     })
-    .then(response => {
-      console.log(response)
-      
-    }).catch(e => console.log(e))
+      .then(response => {
+        setYoutubeId(response.data.yt_video_id)
+        props.setUserMood(null)
+
+      }).catch(e => console.log(e))
   }
 
-  
+
 
   return (
     <section className="personalPlayList">
