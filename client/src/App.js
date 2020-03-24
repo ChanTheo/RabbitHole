@@ -76,7 +76,7 @@ function App() {
               {state.expressions && 
               <Graph
               expressions={state.expressions}
-              />}
+              />} 
             </Route>
             <Route path="/users/:id/profile">
               <Profile />

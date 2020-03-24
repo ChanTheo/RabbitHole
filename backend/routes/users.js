@@ -17,7 +17,8 @@ module.exports = ({
   getVideos,
   getEmotions,
   getVideoForEmotion,
-  getUser
+  getUser,
+  createWatchLog,
 }) => {
   /* GET users listing. */
   router.get("/", function(req, res, next) {
@@ -56,6 +57,14 @@ module.exports = ({
   router.get("/logout", function (req, res) {
     req.session.user_id = null
     
+  })
+
+  //creates a watchlog
+
+  router.post("/watch_logs/:user_id", function (req, res) {
+    console.log(req.params.user_id)
+    createWatchLog(req.params.user_id)
+    .then(response => res.json(response))
   })
 
   router.post("/:id/watch_log/:id/log_entry", function(req, res ){

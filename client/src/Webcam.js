@@ -48,11 +48,6 @@ export default function Webcam(props) {
     });
   };
 
-  const analysisForSingleVideo =  () => {
-    // need to find how to trigger this after the video
-
-  }
-
   const scanMood = () => {
     // should probably take in the video ID so this can be sent to the DB
     // where does the watch_log id come from
@@ -73,35 +68,20 @@ export default function Webcam(props) {
           const angry_percent = faceapiResults.expressions.angry
           const fearful_percent = faceapiResults.expressions.fearful
           const sad_percent = faceapiResults.expressions.sad
-    
 
-          // const data = {
-          //   surprised_percent,
-          //   disgusted_percent,
-          //   neutral_percent,
-          //   sad_percent,
-          //   fearful_percent,
-          //   angry_percent,
-          //   happy_percent,
-          // }
-
-         
-
-          // send them to the db
-
-          // return axios({
-          //   method: "POST",
-            // url: "users/:id/watch_log/:id/log_entries",
-          //   data: {
-              // surprised_percent,
-              // disgusted_percent,
-              // neutral_percent,
-              // sad_percent,
-              // fearful_percent,
-              // angry_percent,
-              // happy_percent,
-          //   }
-          // })
+          return axios({
+            method: "POST",
+            url: "users/:id/watch_log/:id/log_entries",
+            data: {
+              surprised_percent,
+              disgusted_percent,
+              neutral_percent,
+              sad_percent,
+              fearful_percent,
+              angry_percent,
+              happy_percent,
+            }
+          })
 
           props.setExpressions(surprised_percent,
             disgusted_percent,
@@ -113,7 +93,7 @@ export default function Webcam(props) {
 
           // pass the % to the graph 
           // need to round them to the nearest number
-          
+
           let currentEmotion = "neutral"
           // nuetral is the most common so it is the place holder
           if (faceapiResults) {
@@ -155,8 +135,12 @@ export default function Webcam(props) {
             }
           }
           props.setUserMood(moods[currentEmotion])
-          
-          console.log("User's current emotion is:" + currentEmotion)
+          if (props.user) {
+            axios({
+              method: "POST",
+              url: `/api/users/watch_logs/:${props.user.id}`
+            })
+          }
         })
 
     }, 1800)
