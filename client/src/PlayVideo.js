@@ -95,7 +95,7 @@ const PlayVideo = (props) => {
       disgusted: "🤢",
       surprised: "😲"
     };
-    for(const mood of moods) {
+    for(const mood in moods) {
       
       if(moods[mood] === moods[userEmoji]) {
         console.log("moods[mood", moods[mood])
@@ -111,7 +111,7 @@ const PlayVideo = (props) => {
     .then(response => {
       console.log(response)
       
-    })
+    }).catch(e => console.log(e))
   }
 
   
