@@ -10,20 +10,28 @@ import "./App.scss";
 import useApplicationData from "./hooks/useApplicationData";
 
 // Importing components
-import Header from "./Header/index";
-import Home from "./Header/Home";
-import Login from "./Header/Login";
-import Logout from "./Header/Logout";
-import Register from "./Header/Register";
+import Header from "./components/Header";
+import Home from "./components/Home";
+import Login from "./components/Login";
+import Logout from "./components/Logout";
+import Register from "./components/Register";
 import Webcam from "./Webcam";
 // import Button from "../Button"
 import PlayVideo from "./PlayVideo";
-import Bargraph from "./Bargraph/index"
-import Profile from "./Profile/index"
-import Graph from "./Graph/index"
+import Bargraph from "./Bargraph/index";
+import Profile from "./Profile/index";
+import Graph from "./Graph/index";
 
 function App() {
-  const { state, setState, register, login, logout, setExpressions, setUserMood } = useApplicationData();
+  const {
+    state,
+    setState,
+    register,
+    login,
+    logout,
+    setExpressions,
+    setUserMood
+  } = useApplicationData();
 
   const testRoute = e => {
     e.preventDefault();
@@ -37,52 +45,44 @@ function App() {
     <Router>
       <div className="App">
         <main className="layout">
-          <Header
-            user={state.user}
-            login={login}
-            register={register}
-            logout={logout}
-          />
-
+          <div className="top-header">
+            <Header
+              user={state.user}
+              login={login}
+              register={register}
+              logout={logout}
+            />
+          </div>
           <Switch>
             <Route path="/login">
-              <Login login={login} />
+              <Login login="{login}" />
             </Route>
+
             <Route path="/register">
-              <Register register={register} />
+              <Register register="{register}" />
             </Route>
-            <Route path="/logout"></Route>
+
+            <Route path="/logout">{/* <Logout /> */}</Route>
+
+            <Route path="/">
+              <Home logout="{logout}" user="{state.user}" />
+              <PlayVideo />
+              <Webcam />
+            </Route>
+
+            <Route path="/profile">
+              {/* <Profile /> */}
+              {/* <Watchlog /> */}
+            </Route>
+
             <Route path="/playvideo">
-              <Webcam user={state.user} />
+              <Webcam user="{state.user}" />
               <PlayVideo />
             </Route>
-            <Route path="/webcam">
-              <Webcam user={state.user} />
-            </Route>
-            <Route path="/">
-              <Home logout={logout} user={state.user} />
-              {state.userMood &&
-              <PlayVideo 
-              user={state.user} 
-              setUserMood={setUserMood}
-              mood={state.userMood}
-              />}
-              <Webcam 
-              user={state.user} 
-              setExpressions={setExpressions}
-              setUserMood={setUserMood}
-              mood={state.userMood}
-              />
-              {state.expressions && 
-              <Graph
-              expressions={state.expressions}
-              />}
-            </Route>
-            <Route path="/users/:id/profile">
-              <Profile />
 
-            </Route>
+            <Route path="/webcam">{/* <Webcam /> */}</Route>
 
+            <Route path="/watch_logs">{/* <Watchlog /> */}</Route>
           </Switch>
         </main>
       </div>

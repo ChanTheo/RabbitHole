@@ -1,0 +1,48 @@
+@import url("https://fonts.googleapis.com/css2?family=Bungee+Inline&family=Source+Sans+Pro:wght@600&display=swap");
+
+@mixin large-text {
+  font: {
+    size: 1.6rem;
+    weight: bold;
+    font-family: "Source Sans Pro", sans-serif;
+  }
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: navy;
+  top: 0;
+  width: 100%;
+  position: relative;
+}
+.navbar-title {
+  color: white;
+  font-family: "Bungee Inline", cursive;
+}
+
+.navbar-collapse {
+  position: absolute;
+  right: 0em;
+  top: 50%;
+  // transform: translateY(-50%);
+  margin-left: auto;
+}
+.title-rabbithole {
+  img {
+    width: 120px;
+    height: 120px;
+  }
+}
+//Login | Register
+.collapse {
+  display: flex;
+  flex-direction: row-reverse;
+  // align-content: flex-start;
+  // align-self: center;
+  margin-right: 100px;
+  margin-top: -50px;
+  @include large-text;
+  color: rgba(245, 247, 240, 0.959);
+}

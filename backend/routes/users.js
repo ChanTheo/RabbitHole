@@ -53,33 +53,6 @@ module.exports = ({
     
   })
 
-  router.get("/logout", function (req, res) {
-    req.session.user_id = null
-    
-  })
-
-  router.post("/:id/watch_log/:id/log_entry", function(req, res ){
-    console.log(req.body)
-    const {
-      surprised_percent,
-      disgusted_percent,
-      neutral_percent,
-      sad_percent,
-      fearful_percent,
-      angry_percent,
-      happy_percent,
-    } = req.body 
-    createWatchLogEntry(surprised_percent,disgusted_percent, neutral_percent, sad_percent, fearful_percent, angry_percent, happy_percent)
-    .then(response => res.json(response))
-    .catch(e => console.log(e))
-  })
-
-  router.get("/:id/profile", function(req, res) {
-    const id = req.params.id;
-
-
-  })
-
 
   return router;
 };
