@@ -170,7 +170,7 @@ export default function Webcam(props) {
       <div className="webcam_buttons">
         <button onClick={startWebcam}>1: Toggle Camera</button>
         <button onClick={scanMood}>2: Scan your Mood </button>
-        {props.mood === null && scanMood()}
+        {/* {props.mood === null && scanMood()} */}
       </div>
 
       <div className="userMood_emoji">

@@ -17,11 +17,6 @@ module.exports = knex => {
       .where("users.id", "=", userID);
   };
 
-  const getWatchLogsForUser = userID => {
-    return knex("watch_logs")
-      .select("*")
-      .where("users_id", "=", userID);
-  };
   const getAllWatchLogs = () => {
     return knex("watch_logs").select("*");
   };
@@ -45,16 +40,7 @@ module.exports = knex => {
       .where("watch_logs.id", "=", "watch_logs_id")
   }
 
-  const getWatchLogsForUser = userID => {
-    return knex("users")
-      .select("*")
-      .where("users.id", "=", userID)
-
-  }
-
   
-
-
   // FIXME ENDS
   const getVideos = () => {
     return knex.select("*").from("videos");
@@ -136,19 +122,6 @@ module.exports = knex => {
       .then(res => res[0]);
   };
 
-  const createWatchLogEntry = function (surprised, disgusted, neutral, sad, fearful, angry, happy) {
-    return knex("log_entries")
-    .insert({
-      surprised_percentage: surprised, 
-      disgusted_percentage: disgusted,
-      neutral_percentage: neutral,
-      sad_percentage: sad,
-      fearful_perentage: fearful,
-      angry_percentage: angry,
-      happy_percentage: happy,})
-    .returning("*")
-    .then(res => res[0])
-  }
 
   const getUserHistory = function (id) {
     return knex("users")
@@ -165,9 +138,7 @@ module.exports = knex => {
 
   return {
     getUsers,
-    getQuotesForUser,
     registerUser,
-    createWatchLogEntry,
     getUserbyUserName,
     registerUser,
     getVideos,

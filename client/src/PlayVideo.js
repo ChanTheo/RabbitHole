@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import YouTube from "react-youtube";
+import YouTube from "react-youtube"; // npm install react-youtube
 import "./PlayVideo.scss";
-// npm install react-youtube
+import axios from "axios"
 
-const PlayVideo = () => {
+
+const PlayVideo = (props) => {
   // Adding more videos, then use setVideo
   const [videos, setVideos] = useState([
     {
@@ -38,7 +39,7 @@ const PlayVideo = () => {
     }
   ]);
   // response for youtube id for playing video
-  const [youtubeId, setYoutubeId] = useState("1VVvXojzgDs");
+  const [youtubeId, setYoutubeId] = useState(null);
   const [number, setNumber] = useState(1);
 
 
@@ -80,15 +81,36 @@ const PlayVideo = () => {
       e.target.playVideo();
     }
   };
-
-  const getNextVideo = function (mood) {
+  // do we want on load to get this video
+  const getNextVideo = function () {
+    console.log(props.mood)
+    const emotion_id = "";
+    const userEmoji = props.mood;
+    const moods = {
+      neutral: "😐",
+      angry: "😡",
+      happy: "😁",
+      sad: "😢",
+      fearful: "😱",
+      disgusted: "🤢",
+      surprised: "😲"
+    };
+    for(const mood of moods) {
+      
+      if(moods[mood] === moods[userEmoji]) {
+        console.log("moods[mood", moods[mood])
+        console.log("moods[userEmoji]", moods[userEmoji])
+        emotion_id = mood
+      }
+    }
+    console.log(emotion_id)
     return axios({
       method: "GET",
-      url: `/videoes/${mood}`
+      url: `api/videos/emotions/:${emotion_id}/random`
     })
     .then(response => {
       console.log(response)
-      // set youtube id here
+      
     })
   }
 
@@ -101,7 +123,8 @@ const PlayVideo = () => {
           className="container"
           videoId={youtubeId}
           opts={opts}
-          onEnd={playNextAuto}
+          onEnd={e => getNextVideo()}
+          onReady={getNextVideo}
         />
       </div>
     </section>

@@ -61,21 +61,21 @@ function App() {
             </Route>
             <Route path="/">
               <Home logout={logout} user={state.user} />
+              {state.userMood &&
+              <PlayVideo 
+              user={state.user} 
+              mood={state.userMood}
+              />}
               <Webcam 
               user={state.user} 
               setExpressions={setExpressions}
               setUserMood={setUserMood}
               mood={state.userMood}
-
               />
-              <PlayVideo 
-              user={state.user} 
-              mood={state.userMood}
-              />
+              {state.expressions && 
               <Graph
               expressions={state.expressions}
-              
-              />
+              />}
             </Route>
             <Route path="/users/:id/profile">
               <Profile />
