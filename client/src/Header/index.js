@@ -13,13 +13,16 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 export default function Header(props) {
   return (
     <header className="top">
-      <h1>
-        {" "}
-        <Link to="/" className="navbar-title">
+      <div className="title-rabbithole">
+        <img src={require("../img/logo2.png")} />
+        <h2>
           {" "}
-          Rabbit Hole{" "}
-        </Link>{" "}
-      </h1>
+          <Link to="/" className="navbar-title">
+            {" "}
+            Rabbit Hole{" "}
+          </Link>{" "}
+        </h2>
+      </div>
       <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
         {props.user && (
           <div className="navbar loggedin">
@@ -39,10 +42,10 @@ export default function Header(props) {
         {!props.user && (
           <div className="navbar loggedout">
             <Link to="/login" className="nav-item nav-link">
-              Login
+              Login{" "}
             </Link>
             <Link to="/register" className="nav-item nav-link">
-              Register
+              | Register
             </Link>
           </div>
         )}

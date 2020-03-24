@@ -1,34 +1,50 @@
-Step 1 :
-ROUTES_FRONTEND.md
-/videos -> Shows something
-/login
-/register
-/profile -> Shows user profile and watch log component
+<Login> /login -> User login
 
-Step 2 : make sure the routes in App.js are matching what you said
-APP.JS
+<Register> /register -> New User login
 
-<Route path="/profile">
-<UserProfile />
-<WatchLogs />
-</Route>
+<Profile> /profile -> Shows user profile,watch log component, history and an arregate analysis of their mood(s) across all videos
 
-  <Switch>
-    <Route path="/login">
-      <Login login={login} />
-    </Route>
-    <Route path="/register">
-      <Register register={register} />
-    </Route>
-    <Route path="/logout">{/* <Logout /> */}</Route>
-    <Route path="/playvideo">
-      <Webcam user={state.user} />
-      <PlayVideo />
-    </Route>
-    <Route path="/webcam">
-      <Webcam user={state.user} />
-    </Route>
-    <Route path="/">
-      <Home logout={logout} user={state.user} />
-    </Route>
-  </Switch>
+<Home> /home -> User logout, Show a webcam to detect user's emotion and shows an emoji based on their mood, Shows YouTube videos, shows a graph based on the users reaction to the video
+
+<PlayVideo> /playvideo -> Shows YouTube videos
+<Watchlog> /watch_logs -> Show user watch_log history
+
+<Webcam> /webcam -> Show a webcam to detect user's emotion
+
+```html
+<Switch>
+  <Route path="/login">
+    <Login login="{login}" />
+  </Route>
+
+  <Route path="/register">
+    <Register register="{register}" />
+  </Route>
+
+  <Route path="/logout">{/* <Logout /> */}</Route>
+
+  <Route path="/">
+    <Home logout="{logout}" user="{state.user}" />
+    <PlayVideo />
+    <Webcam />
+  </Route>
+
+  <Route path="/profile">
+    <Profile />
+    <Watchlog />
+  </Route>
+
+  <Route path="/playvideo">
+    <Webcam user="{state.user}" />
+    <PlayVideo />
+  </Route>
+
+  <Route path="/webcam">
+    <Webcam />
+  </Route>
+
+  <Route path="/watch_logs">
+    <Watchlog />
+  </Route>
+</Switch>
+```

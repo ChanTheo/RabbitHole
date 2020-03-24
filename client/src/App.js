@@ -35,31 +35,43 @@ function App() {
       <div className="App">
         <main className="layout">
           <div className="top-header">
-          <Header
-            user={state.user}
-            login={login}
-            register={register}
-            logout={logout}
-          />
+            <Header
+              user={state.user}
+              login={login}
+              register={register}
+              logout={logout}
+            />
           </div>
           <Switch>
             <Route path="/login">
-              <Login login={login} />
+              <Login login="{login}" />
             </Route>
+
             <Route path="/register">
-              <Register register={register} />
+              <Register register="{register}" />
             </Route>
+
             <Route path="/logout">{/* <Logout /> */}</Route>
+
+            <Route path="/">
+              <Home logout="{logout}" user="{state.user}" />
+              <PlayVideo />
+              <Webcam />
+            </Route>
+
+            <Route path="/profile">
+              {/* <Profile /> */}
+              {/* <Watchlog /> */}
+            </Route>
+
             <Route path="/playvideo">
-              <Webcam user={state.user} />
+              <Webcam user="{state.user}" />
               <PlayVideo />
             </Route>
-            <Route path="/webcam">
-              <Webcam user={state.user} />
-            </Route>
-            <Route path="/">
-              <Home logout={logout} user={state.user} />
-            </Route>
+
+            <Route path="/webcam">{/* <Webcam /> */}</Route>
+
+            <Route path="/watch_logs">{/* <Watchlog /> */}</Route>
           </Switch>
           <h1> </h1>
         </main>
