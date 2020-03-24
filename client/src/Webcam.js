@@ -36,7 +36,7 @@ export default function Webcam(props) {
     e.preventDefault();
     return axios({
       method: "GET",
-      url: "/api/videos"
+      url: "/api/users/1"
     }).then(data => console.log(data));
   };
 
