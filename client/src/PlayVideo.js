@@ -84,7 +84,7 @@ const PlayVideo = (props) => {
   // do we want on load to get this video
   const getNextVideo = function () {
     console.log(props.mood)
-    const emotion_id = "";
+    let emotion_id = "";
     const userEmoji = props.mood;
     const moods = {
       neutral: "😐",
@@ -95,18 +95,17 @@ const PlayVideo = (props) => {
       disgusted: "🤢",
       surprised: "😲"
     };
-    for(const mood of moods) {
+    for(const mood in moods) {
       
-      if(moods[mood] === moods[userEmoji]) {
+      if(moods[mood] === userEmoji) {
         console.log("moods[mood", moods[mood])
         console.log("moods[userEmoji]", moods[userEmoji])
         emotion_id = mood
       }
     }
-    console.log(emotion_id)
     return axios({
       method: "GET",
-      url: `api/videos/emotions/:${emotion_id}/random`
+      url: `/api/videos/emotions/:${emotion_id}/random`
     })
     .then(response => {
       console.log(response)

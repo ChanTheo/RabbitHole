@@ -60,13 +60,13 @@ module.exports = knex => {
   };
 
   //ys:
-  const getVideosForEmotion = id => {
-    //getVideosForEmotion
+  const getVideosForEmotion = mood => {
+    const emotion = getEmotionID(mood)
     return knex
       .select("*")
       .from("emotions")
       .innerJoin("videos", "emotions.id", "videos.emotion_id")
-      .where("videos.emotion_id", "=", id);
+      .where("videos.emotion_id", "=", emotion.id);
   };
 
   const getRandomVideoFromEmotion = () => {
@@ -83,7 +83,6 @@ module.exports = knex => {
 
   const getEmotionID = mood => {
     const emotions = getEmotions();
-    console.log("getEmotionID", emotions);
     emotions.map(emotion => emotion);
   };
 

@@ -34,8 +34,9 @@ module.exports = ({
 
   //ys: ????
   router.get("/emotions/:emotion_id/random", function(req, res) {
+    const emotion_id = String(req.params.emotion_id)
     getVideosForEmotion(req.params.emotion_id).then(result => {
-      console.log("get route", result)
+      result.json(result)
     });
   });
 
