@@ -31,27 +31,7 @@ module.exports = ({
 
   router.post("/login", function(req, res) {});
 
-  //ys
-  // router.get("/videos", function(req, res) {
-  //   console.log("/videos");
-  //   getVideos().then(result => res.json(result));
-  // });
 
-  //ys
-  // router.get("/emotions", function(req, res) {
-  //   getEmotions().then(result => res.json(result));
-  // });
-
-  //ys
-  // router.get("/:id/Videos", function(req, res) {
-  //   const { id } = req.params;
-  //   getVideoForEmotion(id).then(result => res.json(result));
-  // });
-
-  //ys
-  // router.get("/users", function(req, res) {
-  //   getUser().then(result => res.json(result));
-  // });
 
   return router;
 };
