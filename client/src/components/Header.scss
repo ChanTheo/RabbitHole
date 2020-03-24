@@ -9,16 +9,26 @@
 }
 
 .top {
-  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: navy;
   top: 0;
   width: 100%;
+  position: relative;
 }
 .navbar-title {
   color: white;
   font-family: "Bungee Inline", cursive;
 }
 
+.navbar-collapse {
+  position: absolute;
+  right: 0em;
+  top: 50%;
+  // transform: translateY(-50%);
+  margin-left: auto;
+}
 .title-rabbithole {
   img {
     width: 120px;

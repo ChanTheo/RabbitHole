@@ -10,11 +10,11 @@ import "./App.scss";
 import useApplicationData from "./hooks/useApplicationData";
 
 // Importing components
-import Header from "./Header/index";
-import Home from "./Header/Home";
-import Login from "./Header/Login";
-import Logout from "./Header/Logout";
-import Register from "./Header/Register";
+import Header from "./components/Header";
+import Home from "./components/Home";
+import Login from "./components/Login";
+import Logout from "./components/Logout";
+import Register from "./components/Register";
 import Webcam from "./Webcam";
 // import Button from "../Button"
 import PlayVideo from "./PlayVideo";
