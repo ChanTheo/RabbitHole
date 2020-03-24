@@ -22,3 +22,4 @@ With a very quick comment on the routes to know what they do
 - GET /api/watch_logs --> gets all the watchlog
 - GET /api/watch_logs/:watch_log_id --> gets the watchlog
 - POST /api/watch_logs/:watch_log_id --> adds an entry to the watch log
+  (No router)
