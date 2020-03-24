@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 import * as faceapi from "face-api.js"; // npm i face-api.js
+import axios from "axios";
 
 import "./App.scss";
 import useApplicationData from "./hooks/useApplicationData";
@@ -24,7 +25,13 @@ import Graph from "./Graph/index"
 function App() {
   const { state, setState, register, login, logout, setExpressions, setUserMood } = useApplicationData();
 
-
+  const testRoute = e => {
+    e.preventDefault();
+    return axios({
+      method: "GET",
+      url: "api/videos/"
+    }).then(data => console.log(data));
+  };
 
   return (
     <Router>
@@ -36,6 +43,7 @@ function App() {
             register={register}
             logout={logout}
           />
+
           <Switch>
             <Route path="/login">
               <Login login={login} />
