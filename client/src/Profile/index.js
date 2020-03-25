@@ -25,6 +25,8 @@ export default function Profile(props) {
     console.log(props);
   };
 
+  //`/api/watch_logs/video/${userID}` // check backend routes
+
   // TO DO: write DB helpers
 
   // 1. Get all WatchLog's for user
