@@ -21,5 +21,10 @@ With a very quick comment on the routes to know what they do
 
 - GET /api/watch_logs --> gets all the watchlog
 - GET /api/watch_logs/:watch_log_id --> gets the watchlog
+- GET /api/wach_logs/video/:watch_log_id -->
+  gets video id and log entries from watch_log id
+- GET /api/wach_logs/log_entries/:watch_log_id -->
+  gets log entries from watch_log id
+
 - POST /api/watch_logs/:watch_log_id --> adds an entry to the watch log
   (No router)

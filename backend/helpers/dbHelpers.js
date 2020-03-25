@@ -44,6 +44,17 @@ module.exports = knex => {
 
   //ys-fixed
   const getWatchLogByID = id => {
+    return (
+      knex
+        .select("*")
+        .from("watch_logs")
+        // .innerJoin("log_entries", "watch_logs.id", "log_entries.watch_log_id")
+        .where("watch_logs.user_id", "=", id)
+    );
+  };
+
+  //ys-fixed
+  const getLogEntryByWatchlogId = id => {
     return knex
       .select("*")
       .from("watch_logs")
@@ -99,7 +110,7 @@ module.exports = knex => {
     return knex.select("*").from("users");
   };
 
-  //ys:  ////????////??????
+  //ys:
   const getVideosFromWatchLog = id => {
     console.log("id from getVideosFromWathcLog", id);
     return knex
@@ -178,6 +189,7 @@ module.exports = knex => {
     getWatchLogByID,
     getSingleVideo,
     getRandomVideoFromEmotion,
-    getVideosFromWatchLog
+    getVideosFromWatchLog,
+    getLogEntryByWatchlogId
   };
 };
