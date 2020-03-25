@@ -11,10 +11,18 @@ module.exports = knex => {
     // will return the id for login / cookie session
   };
 
-  const getUserInfo = userID => {
-    return knex("users")
+  // const getUserInfo = userID => {
+  //   return knex("users")
+  //     .select("*")
+  //     .where("users.id", "=", userID);
+  // };
+
+  //ys-fixed
+  const getUserInfo = id => {
+    return knex
       .select("*")
-      .where("users.id", "=", userID);
+      .from("users")
+      .where("users.id", "=", id);
   };
 
   //ys-fixed
@@ -91,6 +99,21 @@ module.exports = knex => {
     return knex.select("*").from("users");
   };
 
+  //ys:  ////????////??????
+  const getVideosFromWatchLog = id => {
+    console.log("id from getVideosFromWathcLog", id);
+    return knex
+      .select("*")
+      .from("watch_logs")
+
+      .innerJoin("log_entries", "watch_logs.id", "log_entries.watch_log_id")
+      .innerJoin("videos", "videos.id", "=", "log_entries.video_id")
+      .where("log_entries.watch_log_id", "=", id);
+    // .then(result => console.log("Result from getVideosFromWatchLog", result));
+    // .innerJoin("videos", "log_entries.video_id", "videos.id");
+    // .where("log_entries.video_id", "videos.id");
+  };
+
   const createWatchLogEntry = ({ data }, watchLogID, videoID) => {
     const {
       surprised_percent,
@@ -154,6 +177,7 @@ module.exports = knex => {
     getAllWatchLogs,
     getWatchLogByID,
     getSingleVideo,
-    getRandomVideoFromEmotion
+    getRandomVideoFromEmotion,
+    getVideosFromWatchLog
   };
 };

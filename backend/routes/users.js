@@ -1,30 +1,33 @@
 var express = require("express");
 var router = express.Router();
-const cookieSession = require('cookie-session');
+const cookieSession = require("cookie-session");
 
-
-router.use(cookieSession({
-  name: 'session',
-  keys: ['random', 'tea', 'sky', 'hello there', 'something else'],
-  maxAge: 1000 * 60 * 60 * 24
-}));
-
+router.use(
+  cookieSession({
+    name: "session",
+    keys: ["random", "tea", "sky", "hello there", "something else"],
+    maxAge: 1000 * 60 * 60 * 24
+  })
+);
 
 module.exports = ({
   getUsers,
+
   getQuotesForUser,
   registerUser,
   getVideos,
   getEmotions,
   getVideoForEmotion,
-  getUser
+  getUser,
+  getUserInfo
 }) => {
   /* GET users listing. */
   router.get("/", function(req, res, next) {
-
+    console.log("users", req.session.user_id);
     getUsers().then(result => {
-      req.session.user_id = result.id
-      res.json(result)})
+      req.session.user_id = result.id;
+      res.json(result);
+    });
   });
 
   // router.get("/:id/quotes", function(req, res) {
@@ -33,26 +36,27 @@ module.exports = ({
   // });
 
   router.post("/register", function(req, res) {
-    const email = req.body.email
-    const username = req.body.username
-    const password = req.body.password
+    const email = req.body.email;
+    const username = req.body.username;
+    const password = req.body.password;
     registerUser(email, username, password)
       .then(response => res.json(response))
       .catch(e => console.log(e));
   });
 
-  router.post("/login", function(req, res ){
-   
-    const username = req.body.email
-    const password = req.body.password 
-    getUserByUsername(username)
-      .then(response => {
-        console.log("in then", response)
-      })
-      
-    
-  })
+  router.post("/login", function(req, res) {
+    const username = req.body.email;
+    const password = req.body.password;
+    getUserByUsername(username).then(response => {
+      console.log("in then", response);
+    });
+  });
 
+  //ys
+  router.get("/:users_id", function(req, res) {
+    console.log("userid", req.params.users_id);
+    getUserInfo(req.params.users_id).then(result => res.json(result));
+  });
 
   return router;
 };
