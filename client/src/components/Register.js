@@ -21,28 +21,45 @@ export default function Register(props) {
   return (
     <Fragment>
       {redirectHome && <Redirect to="/" />}
-
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="email"
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="username"
-          value={username}
-          onChange={e => setUsername(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="password"
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-        />
-        <input type="submit" value="Register" />
-      </form>
+      <div className="register-container">
+        <form onSubmit={handleSubmit}>
+          <div className="register-title">Registration</div>
+          <div className="empty"></div>
+          <div className="register-email">
+            Email:
+            <input
+              type="text"
+              placeholder="email"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+            />
+          </div>
+          <div className="empty"></div>
+          <div className="register-username">
+            Username:
+            <input
+              type="text"
+              placeholder="username"
+              value={username}
+              onChange={e => setUsername(e.target.value)}
+            />
+          </div>
+          <div className="empty"></div>
+          <div className="register-password">
+            Password:
+            <input
+              type="password"
+              placeholder="password"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+            />
+          </div>
+          <div className="empty"></div>
+          <div className="register-submit">
+            <input type="submit" value="Submit" />
+          </div>
+        </form>
+      </div>
     </Fragment>
   );
 }

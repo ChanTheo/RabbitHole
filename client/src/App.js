@@ -54,11 +54,10 @@ function App() {
             />
           </div>
           <Switch>
-            <div className="login">
-              <Route path="/login">
-                <Login login="{login}" />
-              </Route>
-            </div>
+            <Route path="/login">
+              <Login login="{login}" />
+            </Route>
+
             <div className="register">
               <Route path="/register">
                 <Register register="{register}" />
