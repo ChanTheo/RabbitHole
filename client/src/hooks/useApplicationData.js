@@ -4,12 +4,10 @@ import dataReducer, { SET_USERS } from "../reducers/dataReducer";
 
 const useApplicationData = () => {
   const [state, setState] = useState({
-    user: null,
+    user: null, // user object
     loading: true,
     expressions: null,
-    userMood: null,
-
-
+    userMood: null
   });
 
   // useEffect(() => {
@@ -23,7 +21,6 @@ const useApplicationData = () => {
   // }, []);
 
   function register(email, username, password) {
-
     return axios({
       method: "POST",
       url: "/users/register",
@@ -34,44 +31,41 @@ const useApplicationData = () => {
       }
     })
       .then(userInfo => {
-        const id = userInfo.data.id
-        const user_name = userInfo.data.user_name
-        const email = userInfo.data.email
+        const id = userInfo.data.id;
+        const user_name = userInfo.data.user_name;
+        const email = userInfo.data.email;
 
         const user = {
           id,
           user_name,
           email
-        }
-        setState({ ...state, user: user })
+        };
+        setState({ ...state, user: user });
       })
-      .catch(error => console.log(error))
-
+      .catch(error => console.log(error));
   }
-
-
 
   function login(email, password) {
     return axios({
       method: "GET",
       url: "/users",
-      data: {email, password}
+      data: { email, password }
     }).then(response => {
       const users = response.data;
-      const user = users.find(user => user.password === password && user.email === email)
+      const user = users.find(
+        user => user.password === password && user.email === email
+      );
       if (user) {
-        setState({ ...state, user: user })
+        setState({ ...state, user: user });
       }
-
-    })
+    });
   }
 
   function logout() {
     axios.get({
       url: "users/logout"
-    })
-    setState({ ...state, user: null })
-
+    });
+    setState({ ...state, user: null });
   }
 
   function setExpressions(
@@ -81,8 +75,8 @@ const useApplicationData = () => {
     sad_percent,
     fearful_percent,
     angry_percent,
-    happy_percent) {
-
+    happy_percent
+  ) {
     const expressionsPercentage = {
       surprised_percent,
       disgusted_percent,
@@ -91,13 +85,12 @@ const useApplicationData = () => {
       fearful_percent,
       angry_percent,
       happy_percent
-    }
-    setState({ ...state, expressions: expressionsPercentage })
-
+    };
+    setState({ ...state, expressions: expressionsPercentage });
   }
 
-  function setUserMood (mood) {
-    setState({...state, userMood: mood})
+  function setUserMood(mood) {
+    setState({ ...state, userMood: mood });
   }
 
   return {

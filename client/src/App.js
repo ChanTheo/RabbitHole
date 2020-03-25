@@ -55,31 +55,29 @@ function App() {
           </div>
           <Switch>
             <Route path="/login">
-              <Login login="{login}" />
+              <Login login={login} />
             </Route>
 
-            <div className="register">
-              <Route path="/register">
-                <Register register="{register}" />
-              </Route>
-            </div>
+            <Route path="/register">
+              <Register register={register} />
+            </Route>
+
+            <Route path="/profile">
+              <Profile user={state.user} />
+            </Route>
+
             <Route path="/logout">
               <Logout />
             </Route>
 
             <Route path="/">
-              <Home logout="{logout}" user="{state.user}" />
+              <Home logout={logout} user={state.user} />
               <PlayVideo />
               <Webcam />
             </Route>
 
-            <Route path="/profile">
-              <Profile />
-              {/* <Watchlog /> */}
-            </Route>
-
             <Route path="/playvideo">
-              <Webcam user="{state.user}" />
+              <Webcam user={state.user} />
               <PlayVideo />
             </Route>
 

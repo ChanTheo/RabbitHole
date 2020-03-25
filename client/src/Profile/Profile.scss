@@ -1,0 +1,64 @@
+@import url("https://fonts.googleapis.com/css2?family=Bungee+Inline&family=Source+Sans+Pro:wght@600&display=swap");
+
+@mixin large-text {
+  font: {
+    size: 1.4rem;
+    weight: bold;
+    font-family: "Source Sans Pro", sans-serif;
+  }
+}
+.profile-container {
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 4rem;
+  border-radius: 4px;
+
+  .profile-title {
+    background: white;
+    color: black;
+    height: 3rem;
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .empty {
+    height: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+  }
+  .login-password {
+    background: white;
+    display: flex;
+    justify-content: space-between;
+    @include large-text;
+  }
+  .login-submit {
+    background: white;
+    display: flex;
+    justify-content: start;
+  }
+
+  input[type="submit"] {
+    background-color: rgb(7, 7, 83);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    padding: 12px 32px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+
+  input[type="text"] {
+    width: 60%;
+    border: 2px solid black;
+  }
+
+  input[type="password"] {
+    width: 60%;
+    border: 2px solid black;
+  }
+}
