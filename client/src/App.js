@@ -54,15 +54,19 @@ function App() {
             />
           </div>
           <Switch>
-            <Route path="/login">
-              <Login login="{login}" />
+            <div className="login">
+              <Route path="/login">
+                <Login login="{login}" />
+              </Route>
+            </div>
+            <div className="register">
+              <Route path="/register">
+                <Register register="{register}" />
+              </Route>
+            </div>
+            <Route path="/logout">
+              <Logout />
             </Route>
-
-            <Route path="/register">
-              <Register register="{register}" />
-            </Route>
-
-            <Route path="/logout">{/* <Logout /> */}</Route>
 
             <Route path="/">
               <Home logout="{logout}" user="{state.user}" />
@@ -71,7 +75,7 @@ function App() {
             </Route>
 
             <Route path="/profile">
-              {/* <Profile /> */}
+              <Profile />
               {/* <Watchlog /> */}
             </Route>
 

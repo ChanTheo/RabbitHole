@@ -1,25 +1,26 @@
 import React, { useState, Fragment } from "react";
-import { Redirect } from 'react-router-dom'
+import { Redirect } from "react-router-dom";
+import "./Register.scss";
 
 export default function Register(props) {
-  const [email, setEmail] = useState("")
-  const [username, setUsername] = useState("")
-  const [password, setPassword] = useState("")
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [redirectHome, setRedirectHome] = useState(false);
 
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    props.register(email, username, password)
-      .then(response => setRedirectHome(true))
-    setEmail("")
-    setPassword("")
-    setUsername("")
-  }
+  const handleSubmit = e => {
+    e.preventDefault();
+    props
+      .register(email, username, password)
+      .then(response => setRedirectHome(true));
+    setEmail("");
+    setPassword("");
+    setUsername("");
+  };
 
   return (
     <Fragment>
-      {redirectHome && <Redirect to='/' />}
+      {redirectHome && <Redirect to="/" />}
 
       <form onSubmit={handleSubmit}>
         <input
@@ -43,5 +44,5 @@ export default function Register(props) {
         <input type="submit" value="Register" />
       </form>
     </Fragment>
-  )
+  );
 }
