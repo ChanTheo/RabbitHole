@@ -3,19 +3,12 @@ module.exports = knex => {
     return knex.select("*").from("users");
   };
 
-  const registerUser = function(email, username, password) {
+  const registerUser = function (email, username, password) {
     return knex("users")
-<<<<<<< HEAD
-    .insert({email: email, username: username, password: password})
-    .returning("*")
-    .then(res => res[0]);
-    // will return the id for login / cookie session 
-=======
-      .insert({ email: email, user_name: username, password: password })
+      .insert({ email: email, username: username, password: password })
       .returning("*")
       .then(res => res[0]);
-    // will return the id for login / cookie session
->>>>>>> master
+    // will return the id for login / cookie session 
   };
 
   const validateUserLogin = function (username, password) {
@@ -109,7 +102,6 @@ module.exports = knex => {
     return knex.select("*").from("users");
   };
 
-<<<<<<< HEAD
 
   const createWatchLogEntry = (surprised_percent,
     disgusted_percent,
@@ -117,25 +109,9 @@ module.exports = knex => {
     sad_percent,
     fearful_percent,
     angry_percent,
-    happy_percent, 
-    watchLogID, 
+    happy_percent,
+    watchLogID,
     videoID) => {
-
-    
-=======
-  const createWatchLogEntry = ({ data }, watchLogID, videoID) => {
-    const {
-      surprised_percent,
-      disgusted_percent,
-      neutral_percent,
-      sad_percent,
-      fearful_percent,
-      angry_percent,
-      happy_percent
-    } = data;
->>>>>>> master
-    // need to get video id and watch log id
-    // FIXME
     return knex("log_entries")
       .insert({
         video_id: videoID,
@@ -159,11 +135,11 @@ module.exports = knex => {
       .then(res => res[0]);
   };
 
-  const getUserHistory = function(id) {
+  const getUserHistory = function (id) {
     return knex("users");
   };
 
-  const getUserbyUserName = function(username) {
+  const getUserbyUserName = function (username) {
     return knex("users")
       .select("*")
       .where("user_name", "=", username)
