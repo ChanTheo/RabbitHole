@@ -15,6 +15,31 @@ exports.seed = function(knex) {
           id: 2,
           user_id: 2,
           is_public: true
+        },
+        {
+          id: 3,
+          user_id: 2,
+          is_public: true
+        },
+        {
+          id: 4,
+          user_id: 2,
+          is_public: true
+        },
+        {
+          id: 5,
+          user_id: 3,
+          is_public: true
+        },
+        {
+          id: 6,
+          user_id: 3,
+          is_public: true
+        },
+        {
+          id: 7,
+          user_id: 3,
+          is_public: true
         }
       ]);
     })

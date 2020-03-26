@@ -11,21 +11,18 @@ module.exports = knex => {
     // will return the id for login / cookie session 
   };
 
-  const validateUserLogin = function (username, password) {
-    return knex("users")
-      .select("*")
-      .where({
-        username: username,
-        password: password
-      })
-      .then(res => res[0])
-      .catch(e => "There was an error logging in")
-  }
+  // const getUserInfo = userID => {
+  //   return knex("users")
+  //     .select("*")
+  //     .where("users.id", "=", userID);
+  // };
 
-  const getUserInfo = userID => {
-    return knex("users")
+  //ys-fixed
+  const getUserInfo = id => {
+    return knex
       .select("*")
-      .where("users.id", "=", userID);
+      .from("users")
+      .where("users.id", "=", id);
   };
 
   //ys-fixed
@@ -47,6 +44,17 @@ module.exports = knex => {
 
   //ys-fixed
   const getWatchLogByID = id => {
+    return (
+      knex
+        .select("*")
+        .from("watch_logs")
+        // .innerJoin("log_entries", "watch_logs.id", "log_entries.watch_log_id")
+        .where("watch_logs.user_id", "=", id)
+    );
+  };
+
+  //ys-fixed
+  const getLogEntryByWatchlogId = id => {
     return knex
       .select("*")
       .from("watch_logs")
@@ -112,21 +120,37 @@ module.exports = knex => {
     happy_percent,
     watchLogID,
     videoID) => {
+    // FIXME
     return knex("log_entries")
-      .insert({
-        video_id: videoID,
-        watch_log_id: watchLogID,
-        surprised_percent: surprised_percent,
-        disgusted_percent: disgusted_percent,
-        neutral_percent: neutral_percent,
-        sad_percent: sad_percent,
-        fearful_percent: fearful_percent,
-        angry_percent: angry_percent,
-        happy_percent: happy_percent
-      })
-      .returning("*")
-      .then(res => res[0]);
+    .insert({
+      video_id: videoID,
+      watch_log_id: watchLogID,
+      surprised_percent: surprised_percent,
+      disgusted_percent: disgusted_percent,
+      neutral_percent: neutral_percent,
+      sad_percent: sad_percent,
+      fearful_percent: fearful_percent,
+      angry_percent: angry_percent,
+      happy_percent: happy_percent
+    })
+    .returning("*")
+    .then(res => res[0]);
+};
+  //ys:
+  const getVideosFromWatchLog = id => {
+    console.log("id from getVideosFromWathcLog", id);
+    return knex
+      .select("*")
+      .from("watch_logs")
+
+      .innerJoin("log_entries", "watch_logs.id", "log_entries.watch_log_id")
+      .innerJoin("videos", "videos.id", "=", "log_entries.video_id")
+      .where("log_entries.watch_log_id", "=", id);
+    // .then(result => console.log("Result from getVideosFromWatchLog", result));
+    // .innerJoin("videos", "log_entries.video_id", "videos.id");
+    // .where("log_entries.video_id", "videos.id");
   };
+
 
   const createWatchLog = userId => {
     return knex("watch_logs")
@@ -164,6 +188,7 @@ module.exports = knex => {
     getWatchLogByID,
     getSingleVideo,
     getRandomVideoFromEmotion,
-    validateUserLogin
+    getVideosFromWatchLog,
+    getLogEntryByWatchlogId
   };
 };
