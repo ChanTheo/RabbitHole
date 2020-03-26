@@ -26,7 +26,7 @@ export default function Header(props) {
       <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
         {props.user && (
           <div className="navbar loggedin">
-            <Link to="/users/:id" className="nav-item nav-link" href="/urls">
+            <Link to="/users/profile/:id" className="nav-item nav-link" >
               My Profile
             </Link>
             <Link
@@ -42,7 +42,7 @@ export default function Header(props) {
         {!props.user && (
           <div className="navbar loggedout">
             <Link to="/login" className="nav-item nav-link">
-              Login{" "}
+              Login
             </Link>
             <Link to="/register" className="nav-item nav-link">
               | Register

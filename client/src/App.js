@@ -73,7 +73,7 @@ function App() {
               />
             </Route>
 
-            <Route path="/profile">
+            <Route path="/users/profile">
               <Profile />
               {/* <Watchlog /> */}
             </Route>
