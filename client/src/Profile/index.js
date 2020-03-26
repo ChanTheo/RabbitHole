@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Profile.scss";
 import Loglist from "./Loglist";
+import Watchlist from "./Watchlist";
 // import { on } from "cluster";
 
 // import Watchlog from "../Watchlog";
@@ -17,6 +18,8 @@ export default function Profile(props) {
   // TO DO: write DB helpers
 
   // 1. Get all WatchLog's for user
+
+  const [watchs, setWatch] = useState([]);
   const getWatchLogsForUser = userID => e => {
     e.preventDefault();
 
@@ -24,11 +27,11 @@ export default function Profile(props) {
       method: "GET",
       url: `/api/watch_logs/${userID}` // check backend routes
     }).then(result => {
-      console.log(result);
+      console.log("result.data", result.data);
+      setWatch(result.data);
     });
   };
 
-  let a = null;
   // 2. Get all log entries for user (so we can do aggregate anaylsis)
 
   // props.user to get user info
@@ -42,8 +45,8 @@ export default function Profile(props) {
       url: `/api/watch_logs/log_entries/${userID}`
     }).then(output => {
       setLog(output.data);
-      const newLogs = [...logs];
-      console.log("log: ", newLogs);
+      // const newLogs = [...logs];
+      // console.log("log: ", newLogs);
     });
   };
 
@@ -58,6 +61,7 @@ export default function Profile(props) {
       <div className="profile_aggregate_analysis"></div>
 
       {logs.length > 0 ? <Loglist logs={logs} /> : <div></div>}
+      {logs.length > 0 ? <Watchlist watchs={watchs} /> : <div></div>}
       <button onClick={getLogEntriesForUser(3)}>getLogEntriesForUser</button>
       <button onClick={testProps}>TEST props</button>
       <button onClick={getWatchLogsForUser(3)}>TEST WatchLog</button>
