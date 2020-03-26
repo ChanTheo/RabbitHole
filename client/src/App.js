@@ -10,11 +10,11 @@ import "./App.scss";
 import useApplicationData from "./hooks/useApplicationData";
 
 // Importing components
-import Header from "./Header/index";
-import Home from "./Header/Home";
-import Login from "./Header/Login";
-import Logout from "./Header/Logout";
-import Register from "./Header/Register";
+import Header from "./components/Header";
+import Home from "./components/Home";
+import Login from "./components/Login";
+import Logout from "./components/Logout";
+import Register from "./components/Register";
 import Webcam from "./Webcam";
 // import Button from "../Button"
 import PlayVideo from "./PlayVideo";
@@ -38,28 +38,28 @@ function App() {
     <Router>
       <div className="App">
         <main className="layout">
-          <Header
-            user={state.user}
-            login={login}
-            register={register}
-            logout={logout}
-          />
-
+          <div className="top-header">
+            <Header
+              user={state.user}
+              login={login}
+              register={register}
+              logout={logout}
+            />
+          </div>
           <Switch>
             <Route path="/login">
-              <Login login={login} />
+              <Login login="{login}" />
             </Route>
-            <Route path="/register">
-              <Register register={register} />
+
+            <div className="register">
+              <Route path="/register">
+                <Register register="{register}" />
+              </Route>
+            </div>
+            <Route path="/logout">
+              <Logout />
             </Route>
-            <Route path="/logout"></Route>
-            <Route path="/playvideo">
-              <Webcam user={state.user} />
-              <PlayVideo />
-            </Route>
-            <Route path="/webcam">
-              <Webcam user={state.user} />
-            </Route>
+
             <Route path="/">
               <Home logout={logout} user={state.user} />
               <Moodplayer 
@@ -72,11 +72,20 @@ function App() {
               watchLogID={state.watchLogID}
               />
             </Route>
-            <Route path="/users/:id/profile">
-              <Profile />
 
+            <Route path="/profile">
+              <Profile />
+              {/* <Watchlog /> */}
             </Route>
 
+            <Route path="/playvideo">
+              <Webcam user="{state.user}" />
+              <PlayVideo />
+            </Route>
+
+            <Route path="/webcam">{/* <Webcam /> */}</Route>
+
+            <Route path="/watch_logs">{/* <Watchlog /> */}</Route>
           </Switch>
         </main>
       </div>
