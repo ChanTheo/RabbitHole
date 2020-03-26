@@ -5,34 +5,24 @@ module.exports = knex => {
 
   const registerUser = function(email, username, password) {
     return knex("users")
-<<<<<<< HEAD
-    .insert({email: email, username: username, password: password})
-    .returning("*")
-    .then(res => res[0]);
-    // will return the id for login / cookie session 
-=======
       .insert({ email: email, user_name: username, password: password })
       .returning("*")
       .then(res => res[0]);
     // will return the id for login / cookie session
->>>>>>> master
   };
 
-  const validateUserLogin = function (username, password) {
-    return knex("users")
-      .select("*")
-      .where({
-        username: username,
-        password: password
-      })
-      .then(res => res[0])
-      .catch(e => "There was an error logging in")
-  }
+  // const getUserInfo = userID => {
+  //   return knex("users")
+  //     .select("*")
+  //     .where("users.id", "=", userID);
+  // };
 
-  const getUserInfo = userID => {
-    return knex("users")
+  //ys-fixed
+  const getUserInfo = id => {
+    return knex
       .select("*")
-      .where("users.id", "=", userID);
+      .from("users")
+      .where("users.id", "=", id);
   };
 
   //ys-fixed
@@ -54,6 +44,17 @@ module.exports = knex => {
 
   //ys-fixed
   const getWatchLogByID = id => {
+    return (
+      knex
+        .select("*")
+        .from("watch_logs")
+        // .innerJoin("log_entries", "watch_logs.id", "log_entries.watch_log_id")
+        .where("watch_logs.user_id", "=", id)
+    );
+  };
+
+  //ys-fixed
+  const getLogEntryByWatchlogId = id => {
     return knex
       .select("*")
       .from("watch_logs")
@@ -109,20 +110,21 @@ module.exports = knex => {
     return knex.select("*").from("users");
   };
 
-<<<<<<< HEAD
+  //ys:
+  const getVideosFromWatchLog = id => {
+    console.log("id from getVideosFromWathcLog", id);
+    return knex
+      .select("*")
+      .from("watch_logs")
 
-  const createWatchLogEntry = (surprised_percent,
-    disgusted_percent,
-    neutral_percent,
-    sad_percent,
-    fearful_percent,
-    angry_percent,
-    happy_percent, 
-    watchLogID, 
-    videoID) => {
+      .innerJoin("log_entries", "watch_logs.id", "log_entries.watch_log_id")
+      .innerJoin("videos", "videos.id", "=", "log_entries.video_id")
+      .where("log_entries.watch_log_id", "=", id);
+    // .then(result => console.log("Result from getVideosFromWatchLog", result));
+    // .innerJoin("videos", "log_entries.video_id", "videos.id");
+    // .where("log_entries.video_id", "videos.id");
+  };
 
-    
-=======
   const createWatchLogEntry = ({ data }, watchLogID, videoID) => {
     const {
       surprised_percent,
@@ -133,7 +135,7 @@ module.exports = knex => {
       angry_percent,
       happy_percent
     } = data;
->>>>>>> master
+
     // need to get video id and watch log id
     // FIXME
     return knex("log_entries")
@@ -188,6 +190,7 @@ module.exports = knex => {
     getWatchLogByID,
     getSingleVideo,
     getRandomVideoFromEmotion,
-    validateUserLogin
+    getVideosFromWatchLog,
+    getLogEntryByWatchlogId
   };
 };
