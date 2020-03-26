@@ -5,11 +5,22 @@ module.exports = knex => {
 
   const registerUser = function (email, username, password) {
     return knex("users")
-    .insert({email: email, user_name: username, password: password})
+    .insert({email: email, username: username, password: password})
     .returning("*")
     .then(res => res[0]);
     // will return the id for login / cookie session 
   };
+
+  const validateUserLogin = function (username, password) {
+    return knex("users")
+      .select("*")
+      .where({
+        username: username,
+        password: password
+      })
+      .then(res => res[0])
+      .catch(e => "There was an error logging in")
+  }
 
   const getUserInfo = userID => {
     return knex("users")
@@ -154,6 +165,7 @@ module.exports = knex => {
     getAllWatchLogs,
     getWatchLogByID,
     getSingleVideo,
-    getRandomVideoFromEmotion
+    getRandomVideoFromEmotion,
+    validateUserLogin
   };
 };

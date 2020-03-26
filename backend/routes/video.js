@@ -31,7 +31,7 @@ module.exports = ({
     const idWithNoColon = emotion_id.split("").shift()
     const idWithNoColonAsNumber = parseInt(idWithNoColon, 10)
 
-    getVideosForEmotion(idWithNoColonAsNumber).then(result => {
+    getVideosForEmotion(emotion_id).then(result => {
       let randomVideo;
       const randomInt = Math.floor(Math.random() * Math.floor(result.length))
       console.log("randomint", randomInt)

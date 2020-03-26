@@ -19,6 +19,7 @@ module.exports = ({
   getVideoForEmotion,
   getUser,
   createWatchLog,
+  validateUserLogin,
 }) => {
   /* GET users listing. */
   router.get("/", function(req, res, next) {
@@ -43,18 +44,19 @@ module.exports = ({
   });
 
   router.post("/login", function(req, res ){
-   
+   console.log(req.body)
     const username = req.body.email
     const password = req.body.password 
-    getUserByUsername(username)
+    validateUserLogin(username, password)
       .then(response => {
         console.log("in then", response)
+        res.json(response)
       })
       
     
   })
 
-  router.get("/logout", function (req, res) {
+  router.post("/logout", function (req, res) {
     req.session.user_id = null
     
   })
@@ -67,7 +69,7 @@ module.exports = ({
     .then(response => res.json(response))
   })
 
-  router.post("/:id/watch_log/:id/log_entry", function(req, res ){
+  router.post("/:user_id/watch_logs/:watch_log_id/log_entry", function(req, res ){
     console.log(req.body)
     const {
       surprised_percent,

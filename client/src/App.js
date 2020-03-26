@@ -21,9 +21,10 @@ import PlayVideo from "./PlayVideo";
 import Bargraph from "./Bargraph/index"
 import Profile from "./Profile/index"
 import Graph from "./Graph/index"
+import Moodplayer from "./Moodplayer";
 
 function App() {
-  const { state, setState, register, login, logout, setExpressions, setUserMood } = useApplicationData();
+  const { state, setState, setWatchLogID, register, login, logout, setExpressions, setUserMood } = useApplicationData();
 
   const testRoute = e => {
     e.preventDefault();
@@ -61,22 +62,15 @@ function App() {
             </Route>
             <Route path="/">
               <Home logout={logout} user={state.user} />
-              {state.userMood &&
-              <PlayVideo 
+              <Moodplayer 
               user={state.user} 
               setUserMood={setUserMood}
               mood={state.userMood}
-              />}
-              <Webcam 
-              user={state.user} 
               setExpressions={setExpressions}
-              setUserMood={setUserMood}
-              mood={state.userMood}
-              />
-              {state.expressions && 
-              <Graph
               expressions={state.expressions}
-              />} 
+              setWatchLogID={setWatchLogID}
+              watchLogID={state.watchLogID}
+              />
             </Route>
             <Route path="/users/:id/profile">
               <Profile />

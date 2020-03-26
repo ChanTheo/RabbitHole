@@ -16,6 +16,7 @@ With a very quick comment on the routes to know what they do
 - POST /api/users/register --> username, email and password are entered into db, cookie is set
 - GET /api/users/:user_id --> gets the user info
 - GET /api/users/:user_id/watch_logs --> gets the user watch logs
+- POST /api/users/:user_id/watch_logs --> gets the user watch logs
 
 # WATCH LOG ROUTES
 

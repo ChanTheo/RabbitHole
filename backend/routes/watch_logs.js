@@ -22,9 +22,14 @@ module.exports = ({ getAllWatchLogs, getWatchLogByID, createWatchLogEntry }) => 
       fearful_percent,
       angry_percent,
       happy_percent,
+      video_id,
+      watch_log_id
     } = req.body 
-    createWatchLogEntry(surprised_percent,disgusted_percent, neutral_percent, sad_percent, fearful_percent, angry_percent, happy_percent)
-    .then(response => res.json(response))
+    createWatchLogEntry(surprised_percent,disgusted_percent, neutral_percent, sad_percent, fearful_percent, angry_percent, happy_percent, watch_log_id, video_id)
+    .then(response => {
+      console.log(response)
+      res.json(response)
+    })
     .catch(e => console.log(e))
   })
 
