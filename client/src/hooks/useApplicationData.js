@@ -4,13 +4,10 @@ import dataReducer, { SET_USERS } from "../reducers/dataReducer";
 
 const useApplicationData = () => {
   const [state, setState] = useState({
-    user: null,
+    user: null, // user object
     loading: true,
     expressions: null,
-    userMood: null,
-    watchLogID: null,
-
-
+    userMood: null
   });
 
   // useEffect(() => {
@@ -24,7 +21,6 @@ const useApplicationData = () => {
   // }, []);
 
   function register(email, username, password) {
-
     return axios({
       method: "POST",
       url: "api/users/register",
@@ -35,53 +31,46 @@ const useApplicationData = () => {
       }
     })
       .then(userInfo => {
-        const id = userInfo.data.id
-        const user_name = userInfo.data.username
-        const email = userInfo.data.email
+        const id = userInfo.data.id;
+        const user_name = userInfo.data.username;
+        const email = userInfo.data.email;
         const user = {
           id,
           user_name,
           email
-        }
-        console.log(user)
-        setState({ ...state, user: user })
+        };
+        setState({ ...state, user: user });
       })
-      .catch(error => console.log(error))
-
+      .catch(error => console.log(error));
   }
-
-
 
   function login(email, password) {
     return axios({
-        method: "POST",
-        url: "/api/users/login",
-        data: {email, password}
-      }).then(response => {
-        const id = response.data.id
-        const user_name = response.data.username
-        const email = response.data.email
-        const user = {
-          id,
-          user_name,
-          email
-        }
-        if (user) {
-          setState({ ...state, user: user })
-        } else {
-          // send an error 
-        }
-
-  })
-}
-
+      method: "POST",
+      url: "/api/users/login",
+      data: { email, password }
+    }).then(response => {
+      const id = response.data.id;
+      const user_name = response.data.username;
+      const email = response.data.email;
+      const user = {
+        id,
+        user_name,
+        email
+      };
+      if (user) {
+        setState({ ...state, user: user });
+      } else {
+        // send an error
+      }
+    });
+  }
 
   function logout() {
     axios.post({
       url: "/api/users/logout"
-    })
-    setState({ ...state, user: null })
-
+    });
+    setState({ ...state, user: null });
   }
 
   function setExpressions(
@@ -91,8 +80,8 @@ const useApplicationData = () => {
     sad_percent,
     fearful_percent,
     angry_percent,
-    happy_percent) {
-
+    happy_percent
+  ) {
     const expressionsPercentage = {
       surprised_percent,
       disgusted_percent,
@@ -101,18 +90,17 @@ const useApplicationData = () => {
       fearful_percent,
       angry_percent,
       happy_percent
-    }
-    console.log("in set expressions", expressionsPercentage)
-    setState({ ...state, expressions: expressionsPercentage })
-
+    };
+    console.log("in set expressions", expressionsPercentage);
+    setState({ ...state, expressions: expressionsPercentage });
   }
 
-  function setUserMood (mood) {
-    setState({...state, userMood: mood})
+  function setUserMood(mood) {
+    setState({ ...state, userMood: mood });
   }
 
-  function setWatchLogID (ID) {
-    setState({...state, watchLogID: ID})
+  function setWatchLogID(ID) {
+    setState({ ...state, watchLogID: ID });
   }
 
   return {
@@ -123,7 +111,7 @@ const useApplicationData = () => {
     logout,
     setExpressions,
     setUserMood,
-    setWatchLogID,
+    setWatchLogID
   };
 };
 

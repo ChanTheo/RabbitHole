@@ -18,13 +18,22 @@ import Register from "./components/Register";
 import Webcam from "./Webcam";
 // import Button from "../Button"
 import PlayVideo from "./PlayVideo";
-import Bargraph from "./Bargraph/index"
-import Profile from "./Profile/index"
-import Graph from "./Graph/index"
+import Bargraph from "./Bargraph/index";
+import Profile from "./Profile/index";
+import Graph from "./Graph/index";
 import Moodplayer from "./Moodplayer";
 
 function App() {
-  const { state, setState, setWatchLogID, register, login, logout, setExpressions, setUserMood } = useApplicationData();
+  const {
+    state,
+    setState,
+    setWatchLogID,
+    register,
+    login,
+    logout,
+    setExpressions,
+    setUserMood
+  } = useApplicationData();
 
   const testRoute = e => {
     e.preventDefault();
@@ -48,38 +57,36 @@ function App() {
           </div>
           <Switch>
             <Route path="/login">
-              <Login login="{login}" />
+              <Login login={login} />
             </Route>
 
-            <div className="register">
-              <Route path="/register">
-                <Register register="{register}" />
-              </Route>
-            </div>
+            <Route path="/register">
+              <Register register={register} />
+            </Route>
+
+            <Route path="/profile">
+              <Profile user={state.user} />
+            </Route>
+
             <Route path="/logout">
               <Logout />
             </Route>
 
             <Route path="/">
               <Home logout={logout} user={state.user} />
-              <Moodplayer 
-              user={state.user} 
-              setUserMood={setUserMood}
-              mood={state.userMood}
-              setExpressions={setExpressions}
-              expressions={state.expressions}
-              setWatchLogID={setWatchLogID}
-              watchLogID={state.watchLogID}
+              <Moodplayer
+                user={state.user}
+                setUserMood={setUserMood}
+                mood={state.userMood}
+                setExpressions={setExpressions}
+                expressions={state.expressions}
+                setWatchLogID={setWatchLogID}
+                watchLogID={state.watchLogID}
               />
             </Route>
 
-            <Route path="/profile">
-              <Profile />
-              {/* <Watchlog /> */}
-            </Route>
-
             <Route path="/playvideo">
-              <Webcam user="{state.user}" />
+              <Webcam user={state.user} />
               <PlayVideo />
             </Route>
 
