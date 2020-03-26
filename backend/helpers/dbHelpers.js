@@ -135,6 +135,7 @@ module.exports = knex => {
       angry_percent,
       happy_percent
     } = data;
+
     // need to get video id and watch log id
     // FIXME
     return knex("log_entries")
@@ -155,7 +156,7 @@ module.exports = knex => {
 
   const createWatchLog = userId => {
     return knex("watch_logs")
-      .insert({ user_id: userID, is_public: true })
+      .insert({ user_id: userId, is_public: true })
       .returning("*")
       .then(res => res[0]);
   };
