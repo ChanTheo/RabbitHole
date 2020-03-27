@@ -173,6 +173,15 @@ module.exports = knex => {
       .then(res => console.log(res));
   };
 
+  //Francis
+  const getUserbyEmail = function(username) {
+    return knex("users")
+      .select("*")
+      .where("email", "=", username)
+      .returning("*");
+    // .then(res => console.log(res));
+  };
+
   return {
     getUsers,
     registerUser,
@@ -191,6 +200,7 @@ module.exports = knex => {
     getSingleVideo,
     getRandomVideoFromEmotion,
     getVideosFromWatchLog,
-    getLogEntryByWatchlogId
+    getLogEntryByWatchlogId,
+    getUserbyEmail
   };
 };

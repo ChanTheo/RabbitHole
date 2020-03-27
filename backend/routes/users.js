@@ -20,7 +20,8 @@ module.exports = ({
   getVideoForEmotion,
   getUser,
   createWatchLog,
-  validateUserLogin
+  validateUserLogin,
+  getUserbyEmail
 }) => {
   /* GET users listing. */
   router.get("/", function(req, res, next) {
@@ -92,11 +93,27 @@ module.exports = ({
     const id = req.params.id;
   });
 
+  // router.post("/login", function(req, res) {
+  //   const username = req.body.email;
+  //   const password = req.body.password;
+  //   getUserByUsername(username).then(response => {
+  //     console.log("in then", response);
+  //   });
+  // });
+  // router.post("/login", function(req, res) {
+  //   const username = req.body.email;
+  //   const password = req.body.password;
+  //   getUserByUsername(username).then(response => {
+  //     console.log("in then", response);
+  //   });
+  // });
+  //Francis
   router.post("/login", function(req, res) {
-    const username = req.body.email;
+    const email = req.body.email;
     const password = req.body.password;
-    getUserByUsername(username).then(response => {
+    getUserByEmail(email).then(response => {
       console.log("in then", response);
+      res.json(response);
     });
   });
 
