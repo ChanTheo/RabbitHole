@@ -2,17 +2,17 @@ import React, { useState, useEffect } from "react";
 import * as faceapi from "face-api.js"; // npm i face-api.js
 import Webcam from "./Webcam";
 import PlayVideo from "./PlayVideo";
-import Graph from "./Graph/index"
-
-import axios from "axios"
+import Graph from "./Graph/index";
+import "./Moodplayer.scss";
+import axios from "axios";
 
 export default function Moodplayer(props) {
   //Local state in the MoodPlayer component
   const [youtubeId, setYoutubeId] = useState(null);
   const [showVidePlayer, setShowVideoPlayer] = useState(false);
-  const [showGraph, setShowGraph] = useState(false)
-  const [videoIDFromDB, setvideoIDFromDB] = useState(null)
-  console.log(videoIDFromDB)
+  const [showGraph, setShowGraph] = useState(false);
+  const [videoIDFromDB, setvideoIDFromDB] = useState(null);
+  console.log(videoIDFromDB);
 
   //loads the models
   useEffect(() => {
@@ -37,34 +37,27 @@ export default function Moodplayer(props) {
     surprised: "😲"
   };
 
-  const moodsArray = [
-    "😐",
-    "😡",
-    "😁",
-    "😢",
-    "😱",
-    "🤢",
-    "😲"
-  ]
+  const moodsArray = ["😐", "😡", "😁", "😢", "😱", "🤢", "😲"];
 
-  const getNextVideo = function (mood) {
+  const getNextVideo = function(mood) {
     let emotion_id = 1;
-   for (let i = 0; i < moodsArray.length; i++) {
-     if (moodsArray[i] === mood) {
-      emotion_id += i;
-     }
-   }
+    for (let i = 0; i < moodsArray.length; i++) {
+      if (moodsArray[i] === mood) {
+        emotion_id += i;
+      }
+    }
     return axios({
       method: "GET",
       url: `/api/videos/emotions/random/${emotion_id}`
     })
       .then(response => {
-        console.log(response)
-        setYoutubeId(response.data.yt_video_id)
-        setvideoIDFromDB(response.data.id)
-        setShowVideoPlayer(true)
-      }).catch(e => console.log(e))
-  }
+        console.log(response);
+        setYoutubeId(response.data.yt_video_id);
+        setvideoIDFromDB(response.data.id);
+        setShowVideoPlayer(true);
+      })
+      .catch(e => console.log(e));
+  };
 
   const createWatchLogEntry = (
     surprised_percent,
@@ -73,7 +66,8 @@ export default function Moodplayer(props) {
     sad_percent,
     fearful_percent,
     angry_percent,
-    happy_percent) => {
+    happy_percent
+  ) => {
     return axios({
       method: "POST",
       url: `/api/watch_logs/${props.watchLogID}`,
@@ -88,27 +82,41 @@ export default function Moodplayer(props) {
         video_id: videoIDFromDB,
         watch_log_id: props.watchLogID
       }
-    }).then(result => result).catch(e => console.log(e))
-  }
+    })
+      .then(result => result)
+      .catch(e => console.log(e));
+  };
 
   // scans the face
   const scanMood = () => {
     // should probably take in the video ID so this can be sent to the DB
-    const webcam = document.getElementById("user_camera")
+    const webcam = document.getElementById("user_camera");
     setTimeout(() => {
       faceapi
         .detectSingleFace(webcam)
         .withFaceLandmarks()
         .withFaceExpressions()
         .then(faceapiResults => {
-          console.log(faceapiResults)
-          const neutral_percent = Math.floor(faceapiResults.expressions.neutral * 100)
-          const disgusted_percent = Math.floor(faceapiResults.expressions.disgusted * 100)
-          const surprised_percent = Math.floor(faceapiResults.expressions.surprised * 100)
-          const happy_percent = Math.floor(faceapiResults.expressions.happy * 100)
-          const angry_percent = Math.floor(faceapiResults.expressions.angry * 100)
-          const fearful_percent = Math.floor(faceapiResults.expressions.fearful * 100)
-          const sad_percent = Math.floor(faceapiResults.expressions.sad * 100)
+          console.log(faceapiResults);
+          const neutral_percent = Math.floor(
+            faceapiResults.expressions.neutral * 100
+          );
+          const disgusted_percent = Math.floor(
+            faceapiResults.expressions.disgusted * 100
+          );
+          const surprised_percent = Math.floor(
+            faceapiResults.expressions.surprised * 100
+          );
+          const happy_percent = Math.floor(
+            faceapiResults.expressions.happy * 100
+          );
+          const angry_percent = Math.floor(
+            faceapiResults.expressions.angry * 100
+          );
+          const fearful_percent = Math.floor(
+            faceapiResults.expressions.fearful * 100
+          );
+          const sad_percent = Math.floor(faceapiResults.expressions.sad * 100);
           props.setExpressions(
             surprised_percent,
             disgusted_percent,
@@ -116,18 +124,22 @@ export default function Moodplayer(props) {
             sad_percent,
             fearful_percent,
             angry_percent,
-            happy_percent)
-            
-          let currentEmotion = "neutral"
+            happy_percent
+          );
+
+          let currentEmotion = "neutral";
           if (faceapiResults) {
             for (const emotion in faceapiResults.expressions) {
-              if (faceapiResults.expressions[emotion] > faceapiResults.expressions[currentEmotion]) {
-                currentEmotion = emotion
+              if (
+                faceapiResults.expressions[emotion] >
+                faceapiResults.expressions[currentEmotion]
+              ) {
+                currentEmotion = emotion;
               }
             }
           }
-          props.setUserMood(moods[currentEmotion])
-          getNextVideo(props.mood)
+          props.setUserMood(moods[currentEmotion]);
+          getNextVideo(props.mood);
 
           // create a watch log entry or create a watchlog
           if (props.watchLogID) {
@@ -138,39 +150,37 @@ export default function Moodplayer(props) {
               sad_percent,
               fearful_percent,
               angry_percent,
-              happy_percent,
-            )
+              happy_percent
+            );
           } else if (props.user) {
             return axios({
               method: "POST",
               url: `/api/users/watch_logs/${props.user.id}`
             }).then(result => {
-              props.setWatchLogID(result.data.id)
-            })
+              props.setWatchLogID(result.data.id);
+            });
           }
-          
         });
-    }, 800)
+    }, 800);
     // here we will do some logic to start playing youtube videos
-
   };
-
-
 
   return (
     <section className="Moodplayer_container">
-      {showVidePlayer && <div className="Youtube_container">
-        <PlayVideo
-          user={props.user}
-          mood={props.mood}
-          setUserMood={props.setUserMood}
-          scanMood={scanMood}
-          youtubeId={youtubeId}
-        />
-      </div>}
+      {showVidePlayer && (
+        <div className="Youtube_container">
+          <PlayVideo
+            user={props.user}
+            mood={props.mood}
+            setUserMood={props.setUserMood}
+            scanMood={scanMood}
+            youtubeId={youtubeId}
+          />
+        </div>
+      )}
 
       <div className="userMood_emoji">
-        <span fontSize="10em">{props.mood}</span>
+        <span>{props.mood}</span>
       </div>
 
       <div className="Webcam_container">
@@ -184,12 +194,11 @@ export default function Moodplayer(props) {
           scanMood={scanMood}
         />
       </div>
-      {showGraph &&
+      {showGraph && (
         <div className="graph_container">
-          <Graph
-            expressions={props.expressions}
-          />
-        </div>}
+          <Graph expressions={props.expressions} />
+        </div>
+      )}
     </section>
-  )
+  );
 }

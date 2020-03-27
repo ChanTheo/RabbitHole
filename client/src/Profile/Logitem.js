@@ -20,15 +20,15 @@ export default function Logitem({ log }) {
     happy_percent
   } = log;
 
-   // const moods = {
-    //   neutral: "😐",
-    //   angry: "😡",
-    //   happy: "😁",
-    //   sad: "😢",
-    //   fearful: "😱",
-    //   disgusted: "🤢",
-    //   surprised: "😲"
-    // };
+  // const moods = {
+  //   neutral: "😐",
+  //   angry: "😡",
+  //   happy: "😁",
+  //   sad: "😢",
+  //   fearful: "😱",
+  //   disgusted: "🤢",
+  //   surprised: "😲"
+  // };
   console.log("Logitem", log);
   return (
     // const moods = {
@@ -41,12 +41,11 @@ export default function Logitem({ log }) {
     //   surprised: "😲"
     // };
     <li>
-      video_id: {video_id},
-      {watch_log_id}, surprised_percent: {surprised_percent}, disgusted_percent:{" "}
-      {disgusted_percent}, 😐: {neutral_percent}, 😢: {sad_percent}, fearful_percent: {fearful_percent}, angry_percent:{" "}
-      {angry_percent}, happy_percent: {happy_percent}, created_at: {created_at}
+      video_id: {video_id},{watch_log_id}, surprised_percent:{" "}
+      {surprised_percent}, disgusted_percent: {disgusted_percent}, 😐:{" "}
+      {neutral_percent}, 😢: {sad_percent}, fearful_percent: {fearful_percent},
+      angry_percent: {angry_percent}, happy_percent: {happy_percent},
+      created_at: {created_at}
     </li>
   );
 }
-
-

@@ -1,13 +1,31 @@
-.mainVideoPlayer {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+.mainVideoPlayer-container {
+  // flex-direction: column;
+  // justify-content: center;
+  // align-items: center;
+  border: navy solid 5px;
+  width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #cccccc;
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* justify-content: center; */
+  /* align-items: center; */
+  .mainVideoPlayer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 .personalPlayList {
   width: 100%;
-
+  border: navy solid 5px;
+  width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #cccccc;
   ul {
     list-style-type: none;
     display: flex;

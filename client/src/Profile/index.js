@@ -3,7 +3,7 @@ import axios from "axios";
 import "./Profile.scss";
 import Loglist from "./Loglist";
 import Watchlog from "./Watchlog";
-import Graph from "../Graph/index";  
+import Graph from "../Graph/index";
 import Userhistory from "./Userhistory";
 
 // client/src/Graph/index.js
@@ -14,45 +14,40 @@ import Userhistory from "./Userhistory";
 // will need to get info from the data base might need to use useEffect or Promise.all (or both)
 export default function Profile(props) {
   const [userWatchLogs, setUserWatchLogs] = useState([]);
-  const [allLogEntries, setAllLogEntries ] = useState([]);
-  const [showGraph, setShowGraph] = useState(false)
+  const [allLogEntries, setAllLogEntries] = useState([]);
+  const [showGraph, setShowGraph] = useState(false);
 
   const getLogEntriesForWatchLog = watchlogid => e => {
-    e.preventDefault()
+    e.preventDefault();
     return axios({
       method: "GET",
       url: `/api/watch_logs/log_entries/${watchlogid}`
     }).then(result => {
-      console.log("getlogentriesforWatchlog", result)
-    })
-  }
+      console.log("getlogentriesforWatchlog", result);
+    });
+  };
 
   useEffect(() => {
     Promise.all([
       axios.get(`/api/watch_logs/2`),
-      axios.get(`/api/watch_logs/2/log_entries`),
-    ])
-      .then(res => {
-        setUserWatchLogs(res[0].data)
-        setAllLogEntries(res[1].data)
-       
-      })
-  }, [])
+      axios.get(`/api/watch_logs/2/log_entries`)
+    ]).then(res => {
+      setUserWatchLogs(res[0].data);
+      setAllLogEntries(res[1].data);
+    });
+  }, []);
 
   const testProps = () => {
     console.log(props);
   };
 
-
-
   // watchs.map(watch => {
   //   console.log("renderwatchlogs", watch)
   //   return (
-      
+
   //   )
 
   //`/api/watch_logs/video/${userID}` // check backend routes
-  
 
   // 2. Get all log entries for user (so we can do aggregate anaylsis)
   // const getLogEntriesForUser = userID => e => {
@@ -68,29 +63,30 @@ export default function Profile(props) {
   //   });
   // };
 
-
   return (
     <section className="profile-container">
       <h1></h1>
-      
-      {props.user &&  <div className="profile-title">{props.user_name}</div>}
-        <div className="profile_watch_logs">
-           <Watchlog userWatchLogs={userWatchLogs} 
+
+      {props.user && <div className="profile-title">{props.user_name}</div>}
+      <div className="profile_watch_logs">
+        <Watchlog
+          userWatchLogs={userWatchLogs}
           //  getLogEntriesForWatchLog={getLogEntriesForWatchLog}
-           /> 
-           </div>
+        />
+      </div>
       <div className="empty"></div>
-   {showGraph &&  <div className="profile_aggregate_analysis">
-        <Graph allLogEntries={allLogEntries}/>
-      </div>}
-    <Userhistory userWatchLogs={userWatchLogs} />
+      {showGraph && (
+        <div className="profile_aggregate_analysis">
+          <Graph allLogEntries={allLogEntries} />
+        </div>
+      )}
+      <Userhistory userWatchLogs={userWatchLogs} />
 
       {/* {logs.length > 0 ? <Loglist allLogEntries={allLogEntries} />  : <div></div>} */}
-    
+
       {/* <button onClick={getLogEntriesForUser(3)}>getLogEntriesForUser</button>
       <button onClick={testProps}>TEST props</button>
       <button onClick={getLogEntriesForWatchLog(3)}>TEST getLogEntriesForWatchLog</button> */}
-      
     </section>
   );
 }
