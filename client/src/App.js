@@ -96,6 +96,31 @@ function App() {
 
             <Route path="/watch_logs">{/* <Watchlog /> */}</Route>
           </Switch>
+
+            <Route path="/webcam">{/* <Webcam /> */}</Route>
+
+            <Route path="/watch_logs">{/* <Watchlog /> */}</Route>
+          </Switch>
+
+            <Route path="/webcam">{/* <Webcam /> */}</Route>
+
+            <Route path="/watch_logs">{/* <Watchlog /> */}</Route>
+          </Switch>
+
+            <Route path="/webcam">{/* <Webcam /> */}</Route>
+
+            <Route path="/watch_logs">{/* <Watchlog /> */}</Route>
+          </Switch>
+
+            <Route path="/webcam">{/* <Webcam /> */}</Route>
+
+            <Route path="/watch_logs">{/* <Watchlog /> */}</Route>
+          </Switch>
+
+            <Route path="/webcam">{/* <Webcam /> */}</Route>
+
+            <Route path="/watch_logs">{/* <Watchlog /> */}</Route>
+          </Switch>
         </main>
       </div>
     </Router>
