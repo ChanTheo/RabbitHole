@@ -14,19 +14,6 @@ export default function Webcam(props) {
     props.scanMood();
   };
 
-  // useffect
-
-  // useEffect(() => {
-  // const startWebcam = () => {
-  //   const constraints = { video: true };
-  //   const webcam = document.getElementById("user_camera");
-  //   navigator.mediaDevices.getUserMedia(constraints).then(video => {
-  //     webcam.srcObject = video;
-  //   });
-  //   props.scanMood()
-  // };
-  // }, []);
-
   return (
     <section className="webcam_container">
       <h1>

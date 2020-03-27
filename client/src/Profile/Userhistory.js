@@ -1,5 +1,5 @@
 import React from "react";
-import Watchitem from "./Watchitem";
+import Historyitem from "./Historyitem";
 import axios from "axios"
 
 export default function Userhistory (props) {
