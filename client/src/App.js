@@ -88,13 +88,6 @@ function App() {
                 )}
               </Route>
 
-              <Route path="/playvideo">
-                <Webcam user={state.user} />
-                <PlayVideo />
-              </Route>
-
-              <Route path="/webcam">{/* <Webcam /> */}</Route>
-
               <Route path="/watch_logs">{/* <Watchlog /> */}</Route>
             </Switch>
           </div>

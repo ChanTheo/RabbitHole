@@ -6,11 +6,22 @@ module.exports = ({
   getWatchLogByID,
   getVideosFromWatchLog,
   getLogEntryByWatchlogId,
-  createWatchLogEntry
+  createWatchLogEntry,
+  getWatchLogsForUser
 }) => {
   router.get("/", function(req, res) {
     getAllWatchLogs().then(response => res.json(response));
   });
+
+  // router.get("/:user_id", function(req, res) {
+  //   console.log("Here", req.params.user_id )
+  //   // getWatchLogByID  getWatchLogsForUser
+  //   getWatchLogByID(req.params.user_id).then(response => {
+  //     console.log("in then", response)
+  //     res.json(response)
+  //   }
+  //   );
+  // });
 
   router.get("/:watch_log_id", function(req, res) {
     getWatchLogByID(req.params.watch_log_id).then(response =>
@@ -55,6 +66,13 @@ module.exports = ({
 
   router.get("/log_entries/:watch_log_id", function(req, res) {
     getLogEntryByWatchlogId(req.params.watch_log_id).then(response =>
+      res.json(response)
+    );
+  });
+
+
+  router.get("/:userID/log_entries", function(req, res) {
+    getLogEntryByWatchlogId(req.params.userID).then(response =>
       res.json(response)
     );
   });

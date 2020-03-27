@@ -48,9 +48,7 @@ export default function Moodplayer(props) {
   ]
 
   const getNextVideo = function (mood) {
-    // const userEmoji = props.mood;
     let emotion_id = 1;
-    
    for (let i = 0; i < moodsArray.length; i++) {
      if (moodsArray[i] === mood) {
       emotion_id += i;

@@ -16,5 +16,3 @@ export default function Loglist({ logs }) {
   );
 }
 
-// {/* {logs.length > 0 ? logs.map(log => <li>{log.user_id}</li>) : ""}
-// <p>{test}</p> */}

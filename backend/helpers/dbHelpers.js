@@ -5,7 +5,7 @@ module.exports = knex => {
 
   const registerUser = function(email, username, password) {
     return knex("users")
-      .insert({ email: email, user_name: username, password: password })
+      .insert({ email: email, username: username, password: password })
       .returning("*")
       .then(res => res[0]);
     // will return the id for login / cookie session
@@ -39,19 +39,32 @@ module.exports = knex => {
       .select("*")
       .where("users_id", "=", userID)
       .innerJoin("log_entries")
-      .where("watch_logs.id", "=", "watch_logs_id");
+      .where("watch_logs.id", "=", "watch_logs_id")
+      .innerJoin("videos")
+      .where("log_entries.video_id", "=", "videos.id");
+    // .orderBy();
   };
 
   //ys-fixed
   const getWatchLogByID = id => {
-    return (
-      knex
-        .select("*")
-        .from("watch_logs")
-        // .innerJoin("log_entries", "watch_logs.id", "log_entries.watch_log_id")
-        .where("watch_logs.user_id", "=", id)
-    );
+    return knex
+      .select("*")
+      .from("watch_logs")
+      .where("watch_logs.user_id", "=", id);
+    // .innerJoin("log_entries", "watch_logs.id", "log_entries.watch_log_id")
+    // .where("log_entries.watch_log_id", "=","watch_logs.id")
+    // .orderBy("watch_logs.created_at", "desc")
   };
+
+  // const getWatchLogByID = id => {
+  //   return (
+  //     knex
+  //       .select("*")
+  //       .from("watch_logs")
+  //       // .innerJoin("log_entries", "watch_logs.id", "log_entries.watch_log_id")
+  //       .where("watch_logs.user_id", "=", id)
+  //   );
+  // };
 
   //ys-fixed
   const getLogEntryByWatchlogId = id => {
@@ -59,7 +72,8 @@ module.exports = knex => {
       .select("*")
       .from("watch_logs")
       .innerJoin("log_entries", "watch_logs.id", "log_entries.watch_log_id")
-      .where("log_entries.watch_log_id", "=", id);
+      .where("log_entries.watch_log_id", "=", id)
+      .orderBy("log_entries.created_at", "desc");
   };
 
   // FIXME ENDS
@@ -110,33 +124,17 @@ module.exports = knex => {
     return knex.select("*").from("users");
   };
 
-  //ys:
-  const getVideosFromWatchLog = id => {
-    console.log("id from getVideosFromWathcLog", id);
-    return knex
-      .select("*")
-      .from("watch_logs")
-
-      .innerJoin("log_entries", "watch_logs.id", "log_entries.watch_log_id")
-      .innerJoin("videos", "videos.id", "=", "log_entries.video_id")
-      .where("log_entries.watch_log_id", "=", id);
-    // .then(result => console.log("Result from getVideosFromWatchLog", result));
-    // .innerJoin("videos", "log_entries.video_id", "videos.id");
-    // .where("log_entries.video_id", "videos.id");
-  };
-
-  const createWatchLogEntry = ({ data }, watchLogID, videoID) => {
-    const {
-      surprised_percent,
-      disgusted_percent,
-      neutral_percent,
-      sad_percent,
-      fearful_percent,
-      angry_percent,
-      happy_percent
-    } = data;
-
-    // need to get video id and watch log id
+  const createWatchLogEntry = (
+    surprised_percent,
+    disgusted_percent,
+    neutral_percent,
+    sad_percent,
+    fearful_percent,
+    angry_percent,
+    happy_percent,
+    watchLogID,
+    videoID
+  ) => {
     // FIXME
     return knex("log_entries")
       .insert({
@@ -152,6 +150,20 @@ module.exports = knex => {
       })
       .returning("*")
       .then(res => res[0]);
+  };
+  //ys:
+  const getVideosFromWatchLog = id => {
+    console.log("id from getVideosFromWathcLog", id);
+    return knex
+      .select("*")
+      .from("watch_logs")
+
+      .innerJoin("log_entries", "watch_logs.id", "log_entries.watch_log_id")
+      .innerJoin("videos", "videos.id", "=", "log_entries.video_id")
+      .where("log_entries.watch_log_id", "=", id);
+    // .then(result => console.log("Result from getVideosFromWatchLog", result));
+    // .innerJoin("videos", "log_entries.video_id", "videos.id");
+    // .where("log_entries.video_id", "videos.id");
   };
 
   const createWatchLog = userId => {
@@ -181,6 +193,16 @@ module.exports = knex => {
       .returning("*");
     // .then(res => console.log(res));
   };
+  const validateUserLogin = function(username, password) {
+    return knex("users")
+      .select("*")
+      .where({
+        username: username,
+        password: password
+      })
+      .then(res => res[0])
+      .catch(e => "There was an error logging in");
+  };
 
   return {
     getUsers,
@@ -201,6 +223,7 @@ module.exports = knex => {
     getRandomVideoFromEmotion,
     getVideosFromWatchLog,
     getLogEntryByWatchlogId,
-    getUserbyEmail
+    getUserbyEmail,
+    validateUserLogin
   };
 };

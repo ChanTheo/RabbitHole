@@ -12,7 +12,6 @@ router.use(
 
 module.exports = ({
   getUsers,
-
   getQuotesForUser,
   registerUser,
   getVideos,
@@ -43,10 +42,9 @@ module.exports = ({
 
   router.post("/login", function(req, res) {
     console.log(req.body);
-    const username = req.body.email;
+    const email = req.body.email;
     const password = req.body.password;
-    validateUserLogin(username, password).then(response => {
-      console.log("in then", response);
+    validateUserLogin(email, password).then(response => {
       res.json(response);
     });
   });
@@ -91,30 +89,6 @@ module.exports = ({
 
   router.get("/:id/profile", function(req, res) {
     const id = req.params.id;
-  });
-
-  // router.post("/login", function(req, res) {
-  //   const username = req.body.email;
-  //   const password = req.body.password;
-  //   getUserByUsername(username).then(response => {
-  //     console.log("in then", response);
-  //   });
-  // });
-  // router.post("/login", function(req, res) {
-  //   const username = req.body.email;
-  //   const password = req.body.password;
-  //   getUserByUsername(username).then(response => {
-  //     console.log("in then", response);
-  //   });
-  // });
-  //Francis
-  router.post("/login", function(req, res) {
-    const email = req.body.email;
-    const password = req.body.password;
-    getUserByEmail(email).then(response => {
-      console.log("in then", response);
-      res.json(response);
-    });
   });
 
   //ys
