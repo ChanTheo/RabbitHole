@@ -15,11 +15,12 @@ module.exports = ({
   getQuotesForUser,
   registerUser,
   getVideos,
-  getEmotions,  
+  getEmotions,
   getVideoForEmotion,
   getUser,
   createWatchLog,
-  validateUserLogin
+  validateUserLogin,
+  getUserbyEmail
 }) => {
   /* GET users listing. */
   router.get("/", function(req, res, next) {
@@ -41,9 +42,9 @@ module.exports = ({
 
   router.post("/login", function(req, res) {
     console.log(req.body);
-    const username = req.body.email;
+    const email = req.body.email;
     const password = req.body.password;
-    validateUserLogin(username, password).then(response => {
+    validateUserLogin(email, password).then(response => {
       res.json(response);
     });
   });
@@ -55,8 +56,7 @@ module.exports = ({
   //creates a watchlog
 
   router.post("/watch_logs/:user_id", function(req, res) {
-    console.log(req.params.user_id);
-    createWatchLog(req.params.user_id).then(response => res.json(response));
+    consolechLog(req.params.user_id).then(response => res.json(response));
   });
 
   router.post("/:user_id/watch_logs/:watch_log_id/log_entry", function(
@@ -90,7 +90,6 @@ module.exports = ({
     const id = req.params.id;
   });
 
-  //ys
   router.get("/:users_id", function(req, res) {
     console.log("userid", req.params.users_id);
     getUserInfo(req.params.users_id).then(result => res.json(result));

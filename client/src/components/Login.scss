@@ -13,9 +13,9 @@
   margin-right: auto;
   margin-top: 4rem;
   border-radius: 4px;
+  height: 100%;
 
   .login-title {
-    background: white;
     color: white;
     height: 3rem;
     font-size: 2rem;
@@ -35,13 +35,11 @@
     justify-content: space-between;
   }
   .login-password {
-    background: white;
     display: flex;
     justify-content: space-between;
     @include large-text;
   }
   .login-submit {
-    background: white;
     display: flex;
     justify-content: start;
   }

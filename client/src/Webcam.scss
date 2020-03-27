@@ -1,0 +1,46 @@
+@import url("https://fonts.googleapis.com/css2?family=Bungee+Inline&family=Source+Sans+Pro:wght@600&display=swap");
+
+@mixin large-text {
+  font: {
+    size: 1.4rem;
+    weight: bold;
+    font-family: "Source Sans Pro", sans-serif;
+  }
+}
+@mixin medium-text {
+  font: {
+    size: 1rem;
+    weight: bold;
+    font-family: "Source Sans Pro", sans-serif;
+  }
+}
+.webcam_container {
+  //REMOVE: margin-top: 100px;
+  margin-top: 150px;
+
+  .empty {
+    height: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .webcam_buttons {
+    button {
+      background-color: rgb(7, 7, 83);
+      border: none;
+      border-radius: 10px;
+      @include medium-text;
+      color: white;
+      padding: 12px 32px;
+      text-decoration: none;
+      margin: 4px 2px;
+      cursor: pointer;
+    }
+  }
+  .video_canvas {
+    border: darkblue solid 10px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

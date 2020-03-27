@@ -1,0 +1,13 @@
+@import url("https://fonts.googleapis.com/css2?family=Bungee+Inline&family=Source+Sans+Pro:wght@600&display=swap");
+
+@mixin large-text {
+  font: {
+    size: 1.4rem;
+    weight: bold;
+    font-family: "Source Sans Pro", sans-serif;
+  }
+}
+.Moodplayer_container {
+  // margin-top: 150px;
+  background-color: white;
+}

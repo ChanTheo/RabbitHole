@@ -55,38 +55,42 @@ function App() {
               logout={logout}
             />
           </div>
-          <Switch>
-            <Route path="/login">
-              <Login login={login} />
-            </Route>
+          <div className="main-body">
+            <Switch>
+              <Route path="/login">
+                <Login login={login} />
+              </Route>
 
-            
               <Route path="/register">
                 <Register register={register} />
               </Route>
-            
 
-            <Route path="/profile">
-              <Profile user={state.user} />
-            </Route>
+              <Route path="/profile">
+                <Profile user={state.user} />
+              </Route>
 
-            <Route path="/logout">
-              <Logout />
-            </Route>
+              <Route path="/logout">
+                <Logout />
+              </Route>
 
-            <Route path="/">
-              <Home logout={logout} user={state.user} />
-              <Moodplayer
-                user={state.user}
-                setUserMood={setUserMood}
-                mood={state.userMood}
-                setExpressions={setExpressions}
-                expressions={state.expressions}
-                setWatchLogID={setWatchLogID}
-                watchLogID={state.watchLogID}
-              />
-            </Route>
-          </Switch>
+              <Route path="/">
+                <Home logout={logout} user={state.user} />
+                {login && (
+                  <Moodplayer
+                    user={state.user}
+                    setUserMood={setUserMood}
+                    mood={state.userMood}
+                    setExpressions={setExpressions}
+                    expressions={state.expressions}
+                    setWatchLogID={setWatchLogID}
+                    watchLogID={state.watchLogID}
+                  />
+                )}
+              </Route>
+
+              <Route path="/watch_logs">{/* <Watchlog /> */}</Route>
+            </Switch>
+          </div>
         </main>
       </div>
     </Router>
