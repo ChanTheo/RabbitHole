@@ -1,5 +1,5 @@
 import React from "react";
-import Logitem from "./Logitem";
+import Logentry from "./Logentry";
 
 export default function Loglist({ logs }) {
   console.log("Loglist:", logs); // ok
@@ -8,10 +8,10 @@ export default function Loglist({ logs }) {
 
   return (
     <div>
-      {logs.length > 0
-        ? logs.map(log => <Logitem key={log.id} log={log} />)
-        : ""}
-      {/* <p>{test}</p> */}
+      
+    {/* //     ? logs.map(log => <Logitem key={log.id} log={log} />)
+    //     : ""}
+    //   <p>{test}</p> */}
     </div>
   );
 }

@@ -65,7 +65,8 @@ module.exports = ({
   });
 
   router.get("/log_entries/:watch_log_id", function(req, res) {
-    getLogEntryByWatchlogId(req.params.watch_log_id).then(response =>
+    console.log("/log_entries/${watchlogid}", req.params.watch_log_id)
+    getVideosFromWatchLog (req.params.watch_log_id).then(response =>
       res.json(response)
     );
   });

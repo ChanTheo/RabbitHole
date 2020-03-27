@@ -34,7 +34,8 @@ export default function Moodplayer(props) {
     sad: "😢",
     fearful: "😱",
     disgusted: "🤢",
-    surprised: "😲"
+    surprised: "😲",
+    "😲":'surprised'
   };
 
   const moodsArray = [
@@ -56,7 +57,7 @@ export default function Moodplayer(props) {
    }
     return axios({
       method: "GET",
-      url: `/api/videos/emotions/random/${emotion_id}`
+      url: `/api/videos/emotions/random/${emotion_id}` // /api/videos/emotions/${emotion_id}/random/
     })
       .then(response => {
         console.log(response)

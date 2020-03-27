@@ -3,7 +3,6 @@ import React, {useEffect} from "react"
 import {Bar,} from 'react-chartjs-2';
 
 export default function Graph (props) {
-
   const data = {
     labels: ["Surprised: 😲",
     "Disgusted: 🤢",
@@ -24,24 +23,26 @@ export default function Graph (props) {
       }
     ]
   };
-
-  // useEffect(() => {
-    const setGraphData = function (expressions) {
-      let i = 0;
-      const length = 6
-      console.log("expressions Length", length)
-      if(i <= length) {
-        for (const expression in expressions){
-          data.datasets.data[i] = expressions[expression]
-          i++;
-        }
+  const setGraphData = function (expressions) {
+    let i = 0;
+    const length = 6
+    console.log("expressions Length", length)
+    if(i <= length) {
+      for (const expression of expressions){
+        data.datasets[0].data.push(expressions[expression])
+        i++;
       }
     }
-  // }, [props.expressions]);
+  }
+    setGraphData(props.expressions)
+    console.log(data.datasets.data, "data.datasets")
+  
 
   return (
     <div>
-      <h2>Bar Example </h2>
+      <h2>{props.title} </h2>
+     {props.expressions && <div className="Graph_container"> 
+     {setGraphData(props.expressions)}
       <Bar
         data={data}
         width={100}
@@ -49,8 +50,8 @@ export default function Graph (props) {
         options={{
           maintainAspectRatio: false
         }}
-        onChange={setGraphData()}
       />
+      </div>}
     </div>
   );
 

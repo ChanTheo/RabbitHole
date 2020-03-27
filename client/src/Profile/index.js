@@ -3,8 +3,8 @@ import axios from "axios";
 import "./Profile.scss";
 import Loglist from "./Loglist";
 import Watchlog from "./Watchlog";
-import Graph from "../Graph/index";  
-import Userhistory from "./Userhistory";
+import Graph from "../Graph/index";
+import Watchloglist from "./Watchloglist";
 
 // client/src/Graph/index.js
 // import { on } from "cluster";
@@ -13,31 +13,70 @@ import Userhistory from "./Userhistory";
 // will need to figure out how to limit the number of entries
 // will need to get info from the data base might need to use useEffect or Promise.all (or both)
 export default function Profile(props) {
-  const [userWatchLogs, setUserWatchLogs] = useState([]);
-  const [allLogEntries, setAllLogEntries ] = useState([]);
+  const [userWatchLogs, setUserWatchLogs] = useState([]); // id, created_at
+  const [currentWatchLogId, setCurrentWatchLogId] = useState(null); // currentWatchLogId shouldbe inwatchlog component
   const [showGraph, setShowGraph] = useState(false)
+  const [allLogEntries, setAllLogEntries] = useState([])
+  const [aggregateExpressions, setAggregateExpressions] = useState([])
 
-  const getLogEntriesForWatchLog = watchlogid => e => {
-    e.preventDefault()
-    return axios({
-      method: "GET",
-      url: `/api/watch_logs/log_entries/${watchlogid}`
-    }).then(result => {
-      console.log("getlogentriesforWatchlog", result)
-    })
-  }
+
+  // Constant
+
+
+
+  // SHould be in watchlog component
 
   useEffect(() => {
     Promise.all([
-      axios.get(`/api/watch_logs/2`),
-      axios.get(`/api/watch_logs/2/log_entries`),
+      axios.get(`/api/watch_logs/2`), // 2 = :watch_log id //FIX 
+      axios.get(`/api/watch_logs/2/log_entries`), // /api/watch_logs/:watch_log_id/log_entries
     ])
       .then(res => {
         setUserWatchLogs(res[0].data)
         setAllLogEntries(res[1].data)
-       
       })
+
+    const getAggregateReactionPercentages = (allLogEntries) => {
+      const length = allLogEntries.length
+      let surprised_percent;
+      let disgusted_percent;
+      let neutral_percent;
+      let sad_percent;
+      let fearful_percent;
+      let angry_percent;
+      let happy_percent;
+      for (const logEntry of allLogEntries) {
+        surprised_percent += logEntry.surprised_percent
+        disgusted_percent += logEntry.disgusted_percent
+        neutral_percent += logEntry.neutral_percent
+        sad_percent += logEntry.neutral_percent
+        fearful_percent += logEntry.fearful_percent
+        angry_percent += logEntry.angry_percent
+        happy_percent += logEntry.happy_percent
+      }
+      surprised_percent = surprised_percent / length;
+      disgusted_percent = disgusted_percent / length;
+      neutral_percent = neutral_percent / length;
+      sad_percent = sad_percent / length;
+      fearful_percent = fearful_percent / length;
+      angry_percent = angry_percent / length;
+      happy_percent = happy_percent / length;
+
+      const returnArray = [surprised_percent,
+        disgusted_percent,
+        neutral_percent,
+        sad_percent,
+        fearful_percent,
+        angry_percent,
+        happy_percent]
+      console.log("Return Array", returnArray)
+      setAggregateExpressions(returnArray)
+    }
+      getAggregateReactionPercentages(allLogEntries)
   }, [])
+
+
+
 
   const testProps = () => {
     console.log(props);
@@ -45,14 +84,38 @@ export default function Profile(props) {
 
 
 
-  // watchs.map(watch => {
-  //   console.log("renderwatchlogs", watch)
-  //   return (
-      
-  //   )
+  const getAggregateReactionPercentages = (allLogEntries) => {
+    const length = allLogEntries.length
+    let surprised_percent;
+    let disgusted_percent;
+    let neutral_percent;
+    let sad_percent;
+    let fearful_percent;
+    let angry_percent;
+    let happy_percent;
+    for (const logEntry of allLogEntries) {
+      surprised_percent += logEntry.surprised_percent
+      disgusted_percent += logEntry.disgusted_percent
+      neutral_percent += logEntry.neutral_percent
+      sad_percent += logEntry.neutral_percent
+      fearful_percent += logEntry.fearful_percent
+      angry_percent += logEntry.angry_percent
+      happy_percent += logEntry.happy_percent
+    }
+    surprised_percent = surprised_percent / length;
+    disgusted_percent = disgusted_percent / length;
+    neutral_percent = neutral_percent / length;
+    sad_percent = sad_percent / length;
+    fearful_percent = fearful_percent / length;
+    angry_percent = angry_percent / length;
+    happy_percent = happy_percent / length;
+    
+  }
+
+
 
   //`/api/watch_logs/video/${userID}` // check backend routes
-  
+
 
   // 2. Get all log entries for user (so we can do aggregate anaylsis)
   // const getLogEntriesForUser = userID => e => {
@@ -69,28 +132,33 @@ export default function Profile(props) {
   // };
 
 
+
   return (
     <section className="profile-container">
-      <h1></h1>
-      
-      {props.user &&  <div className="profile-title">{props.user_name}</div>}
-        <div className="profile_watch_logs">
-           <Watchlog userWatchLogs={userWatchLogs} 
-          //  getLogEntriesForWatchLog={getLogEntriesForWatchLog}
-           /> 
-           </div>
-      <div className="empty"></div>
-   {showGraph &&  <div className="profile_aggregate_analysis">
-        <Graph allLogEntries={allLogEntries}/>
-      </div>}
-    <Userhistory userWatchLogs={userWatchLogs} />
 
-      {/* {logs.length > 0 ? <Loglist allLogEntries={allLogEntries} />  : <div></div>} */}
-    
-      {/* <button onClick={getLogEntriesForUser(3)}>getLogEntriesForUser</button>
-      <button onClick={testProps}>TEST props</button>
-      <button onClick={getLogEntriesForWatchLog(3)}>TEST getLogEntriesForWatchLog</button> */}
-      
+      {props.user && <div className="profile-title"><h1>{props.user_name}'s Rabbithole</h1></div>}
+      {!currentWatchLogId && <div className="profile_Watchloglist_container">
+        <Watchloglist
+          userWatchLogs={userWatchLogs}
+          setCurrentWatchLogId={setCurrentWatchLogId}
+          user={props.user}
+        />
+      </div>}
+      {currentWatchLogId && <div className="Profile_Watchlog_container">
+        <Watchlog
+          currentWatchLogId={currentWatchLogId}
+        //  getLogEntriesForWatchLog={getLogEntriesForWatchLog}
+        />
+      </div>}
+      {!currentWatchLogId && <div className="profile_graph_container">
+        <Graph allLogEntries={allLogEntries}
+          expressions={aggregateExpressions}
+             title={props.user ? props.user.username + " 's Average Reation" : "Average Reaction"}
+        />
+      </div>}
+
+
+
     </section>
   );
 }
