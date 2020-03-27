@@ -22,7 +22,7 @@ export default function Login(props) {
       <main>
         <div className="login-container">
           <form className="login-form" onSubmit={handleLogin}>
-            <div className="login-title">Login</div>
+            <div className="login-title"></div>
             <div className="empty"></div>
             <div className="login-email">
               Email:

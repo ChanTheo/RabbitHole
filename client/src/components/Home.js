@@ -12,7 +12,8 @@ export default function Home(props) {
           <p>
             Our app uses TensorFlow’s models to gauge the emotions of the user
             between videos and then makes a recommendation for the next video
-            based on this recorded emotion.
+            based on this recorded emotion. Rabbithole was developped by Theo
+            Chan and YoonSoon Kang.
           </p>
         </div>
       </div>

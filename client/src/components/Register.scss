@@ -23,7 +23,6 @@
   border-radius: 4px;
 
   .register-title {
-    background: white;
     color: black;
     height: 3rem;
     font-size: 2rem;
@@ -45,19 +44,16 @@
     justify-content: space-between;
   }
   .register-username {
-    background: white;
     display: flex;
     justify-content: space-between;
     @include large-text;
   }
   .register-password {
-    background: white;
     display: flex;
     justify-content: space-between;
     @include large-text;
   }
   .register-submit {
-    background: white;
     display: flex;
     justify-content: start;
   }
