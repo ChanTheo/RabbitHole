@@ -39,7 +39,7 @@ function App() {
     e.preventDefault();
     return axios({
       method: "GET",
-      url: "api/videos/"
+      url: "/api/videos/"
     }).then(data => console.log(data));
   };
 
@@ -86,15 +86,6 @@ function App() {
                 watchLogID={state.watchLogID}
               />
             </Route>
-
-            <Route path="/playvideo">
-              <Webcam user={state.user} />
-              <PlayVideo />
-            </Route>
-
-            <Route path="/webcam">{/* <Webcam /> */}</Route>
-
-            <Route path="/watch_logs">{/* <Watchlog /> */}</Route>
           </Switch>
         </main>
       </div>
