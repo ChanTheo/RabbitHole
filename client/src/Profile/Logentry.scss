@@ -1,0 +1,45 @@
+@import url("https://fonts.googleapis.com/css2?family=Bungee+Inline&family=Source+Sans+Pro:wght@600&display=swap");
+
+@mixin large-text {
+  font: {
+    size: 1.4rem;
+    weight: bold;
+    font-family: "Source Sans Pro", sans-serif;
+  }
+}
+
+.Logentry_container {
+  width: 70%;
+
+  margin-left: auto;
+  margin-right: auto;
+  // margin-top: 4rem;
+  border-radius: 4px;
+  height: 100%;
+
+  .Logentry_emotionBeforeVideo {
+    background: #22b8cf;
+    color: white;
+    height: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .Logentry_content {
+    // height: 5rem;
+    font-size: 2rem;
+    display: flex;
+    // align-items: center;
+    justify-content: space-around;
+  }
+  .Logentry_img {
+    // height: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    @include large-text;
+  }
+  .Logentry_reaction {
+    display: flex;
+    list-style-type: none;
+  }
+}
