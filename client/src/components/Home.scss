@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Bungee+Inline&family=Source+Sans+Pro:wght@600&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Spicy+Rice&display=swap");
 @mixin large-text {
   font: {
     size: 1.4rem;
@@ -8,7 +8,7 @@
   }
 }
 
-@mixin solid-line($width: 5px, $color: darkblue) {
+@mixin solid-line($width: 12px, $color: darkblue) {
   border: $width solid $color;
 }
 .home-container {
@@ -32,6 +32,10 @@
       bottom: 3rem;
     }
     @include solid-line;
+    h1 {
+      font-family: "Spicy Rice", cursive;
+      color: rgb(74, 16, 150);
+    }
   }
   .home-content {
     height: 1.5rem;
