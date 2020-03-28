@@ -39,7 +39,7 @@ function App() {
     e.preventDefault();
     return axios({
       method: "GET",
-      url: "api/videos/"
+      url: "/api/videos/"
     }).then(data => console.log(data));
   };
 
