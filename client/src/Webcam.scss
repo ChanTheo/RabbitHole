@@ -36,9 +36,12 @@
       margin: 4px 2px;
       cursor: pointer;
     }
+    button:hover {
+      background-color: rgb(6, 122, 230);
+    }
   }
   .video_canvas {
-    border: darkblue solid 10px;
+    // border: darkblue solid 10px;
     width: 80%;
     margin-left: auto;
     margin-right: auto;

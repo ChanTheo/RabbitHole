@@ -56,7 +56,6 @@ const renderLogEntries = (logEntries) => {
         </ul>
 
       </div>
-      
     </div>
   );
 }

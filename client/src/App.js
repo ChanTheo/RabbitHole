@@ -75,7 +75,7 @@ function App() {
 
               <Route path="/">
                 <Home logout={logout} user={state.user} />
-                {login && (
+                {state.user && (
                   <Moodplayer
                     user={state.user}
                     setUserMood={setUserMood}
