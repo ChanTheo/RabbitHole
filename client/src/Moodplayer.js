@@ -12,6 +12,7 @@ export default function Moodplayer(props) {
   const [showVidePlayer, setShowVideoPlayer] = useState(false);
   const [showGraph, setShowGraph] = useState(false);
   const [videoIDFromDB, setvideoIDFromDB] = useState(null);
+  const [graphExpressions, setGraphExpressions] = useState(null);
   console.log(videoIDFromDB);
 
   //loads the models
@@ -98,6 +99,12 @@ export default function Moodplayer(props) {
         .withFaceLandmarks()
         .withFaceExpressions()
         .then(faceapiResults => {
+
+          if (!faceapiResults) {
+            console.error("FaceAPI had 0 results.");
+            return;
+          }
+
           console.log(faceapiResults);
           const neutral_percent = Math.floor(
             faceapiResults.expressions.neutral * 100
@@ -118,6 +125,9 @@ export default function Moodplayer(props) {
             faceapiResults.expressions.fearful * 100
           );
           const sad_percent = Math.floor(faceapiResults.expressions.sad * 100);
+          
+          // This sets some kind of global state of the expressions at the level of the App.
+          // But the state of the expressions in the child Graph component will stay at its initial value (null)
           props.setExpressions(
             surprised_percent,
             disgusted_percent,
@@ -127,8 +137,19 @@ export default function Moodplayer(props) {
             angry_percent,
             happy_percent
           );
-            console.log(props.expressions)
-            setShowGraph(true)
+
+          // This sets some state that only exists in this component and child components if we want
+          setGraphExpressions({
+            surprised_percent,
+            disgusted_percent,
+            neutral_percent,
+            sad_percent,
+            fearful_percent,
+            angry_percent,
+            happy_percent
+          });
+
+          setShowGraph(true)
           let currentEmotion = "neutral";
           if (faceapiResults) {
             for (const emotion in faceapiResults.expressions) {
@@ -167,6 +188,8 @@ export default function Moodplayer(props) {
     // here we will do some logic to start playing youtube videos
   };
 
+  // Use graphExpressions instead of props.expressions as prop for Graph component
+  // This avoids the weird issues that you're facing, don't think its the best fix though.
   return (
     <section className="Moodplayer_container">
       {showVidePlayer && (
@@ -198,7 +221,7 @@ export default function Moodplayer(props) {
       </div>
       {showGraph && (
         <div className="graph_container">
-          <Graph expressions={props.expressions} />
+          <Graph expressions={graphExpressions}/>
         </div>
       )}
     </section>
