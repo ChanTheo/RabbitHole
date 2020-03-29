@@ -1,4 +1,43 @@
+@import url("https://fonts.googleapis.com/css2?family=Bungee+Inline&family=Source+Sans+Pro:wght@600&display=swap");
+
+@mixin large-text {
+  font: {
+    size: 2.2rem;
+    weight: bold;
+    font-family: "Source Sans Pro", sans-serif;
+  }
+}
+@mixin medium-text {
+  font: {
+    size: 1rem;
+    weight: bold;
+    font-family: "Source Sans Pro", sans-serif;
+  }
+}
 .Watchlog_container {
   border: 15px solid navy;
   background-color: ivory;
+}
+
+.Watchlogs_container_title {
+  @include large-text;
+  padding: {
+    top: 20px;
+    bottom: 20px;
+  }
+}
+
+.Watchlog_button {
+  background-color: rgb(7, 7, 83);
+  border: none;
+  border-radius: 10px;
+  @include medium-text;
+  color: white;
+  padding: 12px 32px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+.Watchlog_button:hover {
+  background-color: rgb(6, 122, 230);
 }

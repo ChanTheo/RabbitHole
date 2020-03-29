@@ -27,7 +27,7 @@ export default function Header(props) {
         {props.user && (
           <div className="navbar loggedin">
             <Link to="/users/:id" className="nav-item nav-link" href="/urls">
-              My Profile
+              My Profile&nbsp;&nbsp;|&nbsp;&nbsp;
             </Link>
             <Link
               to="/"
