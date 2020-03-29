@@ -128,7 +128,7 @@ export default function Moodplayer(props) {
             happy_percent
           );
             console.log(props.expressions)
-            setShowGraph(true)
+            
           let currentEmotion = "neutral";
           if (faceapiResults) {
             for (const emotion in faceapiResults.expressions) {

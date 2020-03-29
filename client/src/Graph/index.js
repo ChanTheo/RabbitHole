@@ -26,7 +26,6 @@ export default function Graph (props) {
   const setGraphData = function (expressions) {
     let i = 0;
     const length = 6
-    console.log("expressions Length", length)
     if(i <= length) {
       for (const expression of expressions){
         data.datasets[0].data.push(expressions[expression])
@@ -34,7 +33,7 @@ export default function Graph (props) {
       }
     }
   }
-    setGraphData(props.expressions)
+    
     console.log(data.datasets.data, "data.datasets")
   
 

@@ -27,7 +27,7 @@ export default function Header(props) {
         {props.user && (
           <div className="navbar loggedin">
             <Link to="/profile" className="nav-item nav-link">
-              My Profile
+              My Profile{" "}
             </Link>
             <Link
               to="/"
@@ -35,7 +35,7 @@ export default function Header(props) {
               href="/urls/new"
               onClick={props.logout}
             >
-              Logout
+              |  Logout
             </Link>
           </div>
         )}
@@ -45,7 +45,7 @@ export default function Header(props) {
               Login{" "}
             </Link>
             <Link to="/register" className="nav-item nav-link">
-              | Register
+              |  Register
             </Link>
           </div>
         )}

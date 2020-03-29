@@ -32,11 +32,11 @@ const useApplicationData = () => {
     })
       .then(userInfo => {
         const id = userInfo.data.id;
-        const user_name = userInfo.data.username;
+        const username = userInfo.data.username;
         const email = userInfo.data.email;
         const user = {
           id,
-          user_name,
+          username,
           email
         };
         setState({ ...state, user: user });
@@ -51,11 +51,11 @@ const useApplicationData = () => {
       data: { email, password }
     }).then(response => {
       const id = response.data.id;
-      const user_name = response.data.username;
+      const username = response.data.username;
       const email = response.data.email;
       const user = {
         id,
-        user_name,
+        username,
         email
       };
       if (user) {

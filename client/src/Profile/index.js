@@ -19,7 +19,7 @@ export default function Profile(props) {
   const [allLogEntries, setAllLogEntries] = useState([])
   const [aggregateExpressions, setAggregateExpressions] = useState([])
 
-
+console.log("profile", props)
   // Constant
 
 
@@ -27,15 +27,6 @@ export default function Profile(props) {
   // SHould be in watchlog component
 
   useEffect(() => {
-    Promise.all([
-      axios.get(`/api/watch_logs/2`), // 2 = :watch_log id //FIX 
-      axios.get(`/api/watch_logs/2/log_entries`), // /api/watch_logs/:watch_log_id/log_entries
-    ])
-      .then(res => {
-        setUserWatchLogs(res[0].data)
-        setAllLogEntries(res[1].data)
-      })
-
     const getAggregateReactionPercentages = (allLogEntries) => {
       const length = allLogEntries.length
       let surprised_percent;
@@ -72,7 +63,20 @@ export default function Profile(props) {
       console.log("Return Array", returnArray)
       setAggregateExpressions(returnArray)
     }
-      getAggregateReactionPercentages(allLogEntries)
+
+    Promise.all([
+      axios.get(`/api/watch_logs/${props.user.id}`), // 2 = :watch_log id //FIX 
+      axios.get(`/api/watch_logs/${props.user.id} /log_entries`), // /api/watch_logs/:watch_log_id/log_entries
+    ])
+      .then(res => {
+        setUserWatchLogs(res[0].data)
+        setAllLogEntries(res[1].data)
+        console.log(allLogEntries)
+        getAggregateReactionPercentages(allLogEntries)
+      })
+
+   
+      
   }, [])
 
 
@@ -82,35 +86,6 @@ export default function Profile(props) {
     console.log(props);
   };
 
-
-
-  const getAggregateReactionPercentages = (allLogEntries) => {
-    const length = allLogEntries.length
-    let surprised_percent;
-    let disgusted_percent;
-    let neutral_percent;
-    let sad_percent;
-    let fearful_percent;
-    let angry_percent;
-    let happy_percent;
-    for (const logEntry of allLogEntries) {
-      surprised_percent += logEntry.surprised_percent
-      disgusted_percent += logEntry.disgusted_percent
-      neutral_percent += logEntry.neutral_percent
-      sad_percent += logEntry.neutral_percent
-      fearful_percent += logEntry.fearful_percent
-      angry_percent += logEntry.angry_percent
-      happy_percent += logEntry.happy_percent
-    }
-    surprised_percent = surprised_percent / length;
-    disgusted_percent = disgusted_percent / length;
-    neutral_percent = neutral_percent / length;
-    sad_percent = sad_percent / length;
-    fearful_percent = fearful_percent / length;
-    angry_percent = angry_percent / length;
-    happy_percent = happy_percent / length;
-    
-  }
 
 
 
@@ -136,7 +111,7 @@ export default function Profile(props) {
   return (
     <section className="profile-container">
 
-      {props.user && <div className="profile-title"><h1>{props.user_name}'s Rabbithole</h1></div>}
+      {props.user && <div className="profile-title"><h1>{props.user.username}'s Rabbithole</h1></div>}
       {!currentWatchLogId && <div className="profile_Watchloglist_container">
         <Watchloglist
           userWatchLogs={userWatchLogs}
