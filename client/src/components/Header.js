@@ -26,7 +26,7 @@ export default function Header(props) {
       <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
         {props.user && (
           <div className="navbar loggedin">
-            <Link to="/users/:id" className="nav-item nav-link" href="/urls">
+            <Link to="/profile" className="nav-item nav-link">
               My Profile
             </Link>
             <Link
