@@ -13,7 +13,7 @@
   margin-right: auto;
   margin-top: 3rem;
   border-radius: 4px;
-  border: 10px solid rgba(black, 0.1);
+  // border: 10px solid rgba(black, 0.1);
   .profile-title {
     background: white;
     color: black;
@@ -39,5 +39,15 @@
     background: white;
     display: flex;
     justify-content: start;
+  }
+
+  .profile_Watchloglist_container {
+    // border: 10px solid navy;
+    background-color: ivory;
+  }
+  .profile_graph_container {
+    border: 10px solid navy;
+    background-color: ivory;
+    margin-top: 50px;
   }
 }

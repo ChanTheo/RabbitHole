@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./Logentry.scss";
+import cn from "classnames";
 
 export default function Logentry(props) {
   const {
@@ -25,10 +26,15 @@ export default function Logentry(props) {
   //   surprised: "😲"
   // };
   // console.log("Logitem", log);
+  const emotionFromProps = props.emotionBeforeVideo;
+  console.log("emotionFromProps", emotionFromProps);
   return (
     <div className="Logentry_container">
-      <h2 className="Logentry_emotionBeforeVideo">
-        Your Emotion Before the Video was: {props.emotionBeforeVideo}
+      <h2 className={cn("Logentry_emotionBeforeVideo", [emotionFromProps])}>
+        Your Emotion Before the Video was:
+        <div className="Logentry_emotionBeforeVideo_result">
+          {props.emotionBeforeVideo}
+        </div>
       </h2>
       <div className="Logentry_content">
         <img
