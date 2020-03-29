@@ -1,0 +1,25 @@
+@import url("https://fonts.googleapis.com/css2?family=Bungee+Inline&family=Source+Sans+Pro:wght@600&display=swap");
+
+@mixin large-text {
+  font: {
+    size: 1.4rem;
+    weight: bold;
+    font-family: "Source Sans Pro", sans-serif;
+  }
+}
+
+// .Watchloglistitem_container {
+//   // width: 50%;
+// }
+
+.Watchlog_id_and_date {
+  .Watchlog_id_date_content {
+    font-weight: bold;
+    @include large-text;
+    padding: 30px 20px;
+    cursor: pointer;
+    &:hover {
+      color: #ff8787;
+    }
+  }
+}

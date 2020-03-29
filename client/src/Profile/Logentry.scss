@@ -1,0 +1,104 @@
+@import url("https://fonts.googleapis.com/css2?family=Bungee+Inline&family=Source+Sans+Pro:wght@600&display=swap");
+
+@mixin large-text {
+  font: {
+    size: 1.4rem;
+    weight: bold;
+    font-family: "Source Sans Pro", sans-serif;
+  }
+}
+@mixin medium-text {
+  font: {
+    size: 1rem;
+    weight: bold;
+    font-family: "Source Sans Pro", sans-serif;
+  }
+}
+
+.Logentry_container {
+  width: 70%;
+
+  margin-left: auto;
+  margin-right: auto;
+  // margin-top: 4rem;
+  border-radius: 4px;
+  // height: 100%;
+
+  .Logentry_emotionBeforeVideo {
+    background-color: #22b8cf;
+    color: white;
+    height: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    font: {
+      family: "Source Sans Pro", sans-serif;
+      weight: bold;
+    }
+    &.neutral {
+      background-color: rgb(38, 34, 248);
+      color: #f4f5f7;
+      // text-decoration: line-through;
+    }
+    &.angry {
+      background-color: rgb(231, 47, 15);
+      color: #f4f5f7;
+    }
+    &.happy {
+      background-color: rgb(255, 255, 0);
+      color: darkblue;
+    }
+    &.sad {
+      background-color: rgb(89, 93, 95);
+      color: darkblue;
+    }
+    &.fearful {
+      background-color: rgb(255, 192, 213);
+      color: blue;
+    }
+    &.disgusted {
+      background-color: rgb(14, 56, 28);
+      color: white;
+    }
+    &.surprised {
+      background-color: #00ffff;
+      color: brown;
+    }
+  }
+  .Logentry_emotionBeforeVideo_result {
+    // font-family: "Bungee", cursive;
+    // font-weight: bold;
+    font: {
+      family: "Bungee", cursive;
+      weight: bold;
+    }
+  }
+
+  .Logentry_content {
+    background-color: white;
+
+    // height: 5rem;
+    font-size: 2rem;
+    display: flex;
+    // align-items: center;
+    justify-content: space-around;
+  }
+  .Logentry_img {
+    // height: 1.5rem;
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+    @include large-text;
+  }
+  .Logentry_reaction {
+    display: flex;
+    list-style-type: none;
+    font-weight: bold;
+    font-family: "Source Sans Pro", sans-serif;
+    li {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}
