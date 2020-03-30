@@ -185,11 +185,11 @@ module.exports = knex => {
       .then(res => console.log(res));
   };
 
-  const validateUserLogin = function (username, password) {
+  const validateUserLogin = function (email, password) {
     return knex("users")
       .select("*")
       .where({
-        username: username,
+        email: email,
         password: password
       })
       .then(res => res[0])

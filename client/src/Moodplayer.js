@@ -127,7 +127,8 @@ export default function Moodplayer(props) {
             angry_percent,
             happy_percent
           );
-
+            console.log(props.expressions)
+            
           let currentEmotion = "neutral";
           if (faceapiResults) {
             for (const emotion in faceapiResults.expressions) {
@@ -141,7 +142,7 @@ export default function Moodplayer(props) {
           }
           props.setUserMood(moods[currentEmotion]);
           getNextVideo(props.mood);
-
+          console.log("In scan mood", props)
           // create a watch log entry or create a watchlog
           if (props.watchLogID) {
             createWatchLogEntry(
@@ -180,9 +181,9 @@ export default function Moodplayer(props) {
         </div>
       )}
 
-      <div className="userMood_emoji">
+      {/* <div className="userMood_emoji">
         <span>{props.mood}</span>
-      </div>
+      </div> */}
 
       <div className="Webcam_container">
         <Webcam

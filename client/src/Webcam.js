@@ -4,7 +4,6 @@ import axios from "axios";
 import "./Webcam.scss";
 
 export default function Webcam(props) {
-  console.log("webcam", props);
   const startWebcam = () => {
     const constraints = { video: true };
     const webcam = document.getElementById("user_camera");
@@ -16,10 +15,10 @@ export default function Webcam(props) {
 
   return (
     <section className="webcam_container">
-      <h1>
+      {/* <h1>
         {" "}
         Welcome to the Rabbit Hole: {props.user && props.user.user_name}{" "}
-      </h1>
+      </h1> */}
 
       <div className="webcam_buttons">
         <button onClick={startWebcam}>1: Toggle Camera</button>

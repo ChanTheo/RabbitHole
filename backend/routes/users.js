@@ -56,7 +56,8 @@ module.exports = ({
   //creates a watchlog
 
   router.post("/watch_logs/:user_id", function(req, res) {
-    consolechLog(req.params.user_id).then(response => res.json(response));
+    console.log("in here")
+    createWatchLog(req.params.user_id).then(response => res.json(response));
   });
 
   router.post("/:user_id/watch_logs/:watch_log_id/log_entry", function(

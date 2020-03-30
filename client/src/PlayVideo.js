@@ -18,6 +18,7 @@ const PlayVideo = props => {
       <div className="mainvideoPlayer-containter">
         <div className="mainVideoPlayer">
           <YouTube
+          user={props.user}
             className="container"
             videoId={props.youtubeId}
             opts={opts}
