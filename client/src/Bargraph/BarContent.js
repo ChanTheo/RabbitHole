@@ -1,7 +1,6 @@
 import React from "react";
-
-export default function BarContent (){
-
+import "./BarContent.scss";
+export default function BarContent() {
   const moods = {
     Surprised: ":😲",
     Disgusted: ":🤢",
@@ -9,21 +8,14 @@ export default function BarContent (){
     Sad: ":😢",
     Fearful: ":😱",
     Angry: ":😡",
-    Happy: ":😁",
-  }
+    Happy: ":😁"
+  };
 
-  const moodArray = Object.entries(moods) 
+  const moodArray = Object.entries(moods);
 
   const moodsElementArray = moodArray.map(mood => {
-    return (
-    <div className="text">
-      {mood}
-    </div>
-  )})
+    return <div className="text">{mood}</div>;
+  });
 
-  return (
-    <div className="bar_content">
-      {moodsElementArray}
-    </div>
-  )
+  return <div className="bar_content">{moodsElementArray}</div>;
 }
