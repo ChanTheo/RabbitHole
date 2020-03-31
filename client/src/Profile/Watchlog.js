@@ -43,14 +43,26 @@ export default function Watchlog(props) {
     });
     return elements;
   };
+
+  const setIdChangeToNull = () => {
+    console.log("logEntries", logEntries);
+    console.log("Logentries props", props);
+    // props.setCurrentWatchLogId(null);
+  };
+
   return (
     <div className="Watchlogs_container">
       <div className="Watchlog_container">
         <button className="Watchlog_backButton" onClick={() => props.setCurrentWatchLogId(null)}>Back</button> 
+        <div className="Watchlogs_container_title">Log Entries</div>
         <div className="Watchlog_date"></div>
+
         <ul className="Watchlog_entries">
           {logEntries && renderLogEntries(logEntries)}
         </ul>
+        <button className="Watchlog_button" onClick={setIdChangeToNull}>
+          Go Back
+        </button>
       </div>
     </div>
   );

@@ -1,0 +1,26 @@
+@import url("https://fonts.googleapis.com/css2?family=Bungee+Inline&family=Source+Sans+Pro:wght@600&display=swap");
+
+@mixin large-text {
+  font: {
+    size: 2.2rem;
+    weight: bold;
+    font-family: "Source Sans Pro", sans-serif;
+  }
+}
+@mixin medium-text {
+  font: {
+    size: 1.5rem;
+    weight: bold;
+    font-family: "Source Sans Pro", sans-serif;
+  }
+}
+
+.Graph_title {
+  @include large-text;
+  // padding-bottom: 50px;
+}
+.Graph_container {
+  height: 300px;
+  @include medium-text;
+  // padding-bottom: 100px;
+}
