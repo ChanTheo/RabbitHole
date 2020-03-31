@@ -24,33 +24,38 @@ export default function Graph (props) {
     ]
   };
   const setGraphData = function (expressions) {
-    let i = 0;
-    const length = 6
-    if(i <= length) {
-      for (const expression of expressions){
-        data.datasets[0].data.push(expressions[expression])
-        i++;
+    console.log("insetGraph data", expressions)
+     
+     
+      Object.entries(expressions).forEach(entry => {
+        const [expression, percent] = entry;
+        data.datasets[0].data.push(percent);
+      });
+      
+      console.log("Here is the data for the graph:")
+      console.log(data.datasets[0]);
       }
-    }
-  }
+      
+setGraphData(props.expressions)
+
     
-    console.log(data.datasets.data, "data.datasets")
   
 
   return (
     <div>
       <h2>{props.title} </h2>
-     {props.expressions && <div className="Graph_container"> 
-     {setGraphData(props.expressions)}
+     
+     <div className="Graph_container"> 
+     
       <Bar
         data={data}
         width={100}
-        height={50}
+        height={500}
         options={{
           maintainAspectRatio: false
         }}
       />
-      </div>}
+      </div>
     </div>
   );
 

@@ -27,7 +27,7 @@ export default function Watchloglist(props) {
 
   return (
     <div className="Userhistory_container">
-      <h2 className="Watchloglist_title">Watch log</h2>
+      <h2 className="Watchloglist_title">History</h2>
       <div className="Watchlog_date">
         {renderWatchloglist(props.userWatchLogs)}
       </div>

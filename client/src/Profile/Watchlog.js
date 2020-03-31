@@ -46,6 +46,7 @@ export default function Watchlog(props) {
   return (
     <div className="Watchlogs_container">
       <div className="Watchlog_container">
+        <button className="Watchlog_backButton" onClick={() => props.setCurrentWatchLogId(null)}>Back</button> 
         <div className="Watchlog_date"></div>
         <ul className="Watchlog_entries">
           {logEntries && renderLogEntries(logEntries)}

@@ -6,7 +6,7 @@ const useApplicationData = () => {
   const [state, setState] = useState({
     user: null, // user object
     loading: true,
-    expressions: null,
+    expressions: [],
     userMood: null
   });
 
@@ -82,7 +82,7 @@ const useApplicationData = () => {
     angry_percent,
     happy_percent
   ) {
-    const expressionsPercentage = {
+    const expressionsPercentage = [
       surprised_percent,
       disgusted_percent,
       neutral_percent,
@@ -90,7 +90,7 @@ const useApplicationData = () => {
       fearful_percent,
       angry_percent,
       happy_percent
-    };
+    ];
     console.log("in set expressions", expressionsPercentage);
     setState({ ...state, expressions: expressionsPercentage });
   }

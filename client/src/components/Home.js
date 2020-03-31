@@ -8,8 +8,7 @@ export default function Home(props) {
       <div className="home-container">
         <div className="home-title">
           <h1>
-            
-            Welcome to the RabbitHole: {props.user && props.user.username}{" "}
+            Welcome to the RabbitHole {" "} 
           </h1>
         </div>
         <div className="home-content"></div>

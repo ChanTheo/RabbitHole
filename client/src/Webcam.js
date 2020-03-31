@@ -15,31 +15,20 @@ export default function Webcam(props) {
 
   return (
     <section className="webcam_container">
-      {/* <h1>
-        {" "}
-        Welcome to the Rabbit Hole: {props.user && props.user.user_name}{" "}
-      </h1> */}
+     
 
       <div className="webcam_buttons">
-        <button onClick={startWebcam}>1: Toggle Camera</button>
-        {/* <button onClick={}>2: Scan your Mood </button> */}
+        <button onClick={startWebcam}>1: Start Rabbit Hole</button>
       </div>
 
-      <div className="video_canvas">
-        <canvas
-          style={{ width: 800, height: 500 }}
-          width="800px"
-          height="500px"
-          id="user_camera_canvas"
-        ></canvas>
-        <video
-          style={{ width: 800, height: 500, backgroundColor: "black" }}
-          width="800px"
-          height="500px"
-          autoPlay
-          id="user_camera"
-        ></video>
-      </div>
+
+      <video
+        style={{ width: 800, height: 500 }}
+        width="0px"
+        height="0px"
+        autoPlay
+        id="user_camera"
+      ></video>
     </section>
   );
 }

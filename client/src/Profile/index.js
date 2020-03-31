@@ -15,9 +15,9 @@ import Watchloglist from "./Watchloglist";
 export default function Profile(props) {
   const [userWatchLogs, setUserWatchLogs] = useState([]); // id, created_at
   const [currentWatchLogId, setCurrentWatchLogId] = useState(null); // currentWatchLogId shouldbe inwatchlog component
-  const [showGraph, setShowGraph] = useState(false)
   const [allLogEntries, setAllLogEntries] = useState([])
-  const [aggregateExpressions, setAggregateExpressions] = useState([])
+  const [aggregateExpressions, setAggregateExpressions] = useState(null)
+  const [showGraph, setShowGraph] = useState(null);
 
 console.log("profile", props)
   // Constant
@@ -28,6 +28,7 @@ console.log("profile", props)
 
   useEffect(() => {
     const getAggregateReactionPercentages = (allLogEntries) => {
+      console.log(allLogEntries)
       const length = allLogEntries.length
       let surprised_percent;
       let disgusted_percent;
@@ -53,26 +54,33 @@ console.log("profile", props)
       angry_percent = angry_percent / length;
       happy_percent = happy_percent / length;
 
-      const returnArray = [surprised_percent,
+      const returnObject = {surprised_percent,
         disgusted_percent,
         neutral_percent,
         sad_percent,
         fearful_percent,
         angry_percent,
-        happy_percent]
-      console.log("Return Array", returnArray)
-      setAggregateExpressions(returnArray)
+        happy_percent}
+      // console.log("Return Array", returnArray)
+      setAggregateExpressions({surprised_percent,
+        disgusted_percent,
+        neutral_percent,
+        sad_percent,
+        fearful_percent,
+        angry_percent,
+        happy_percent})
     }
 
     Promise.all([
       axios.get(`/api/watch_logs/${props.user.id}`), // 2 = :watch_log id //FIX 
-      axios.get(`/api/watch_logs/${props.user.id} /log_entries`), // /api/watch_logs/:watch_log_id/log_entries
+      axios.get(`/api/watch_logs/${props.user.id}/log_entries`), // /api/watch_logs/:watch_log_id/log_entries
     ])
       .then(res => {
         setUserWatchLogs(res[0].data)
         setAllLogEntries(res[1].data)
         console.log(allLogEntries)
         getAggregateReactionPercentages(allLogEntries)
+        
       })
 
    
@@ -122,10 +130,11 @@ console.log("profile", props)
       {currentWatchLogId && <div className="Profile_Watchlog_container">
         <Watchlog
           currentWatchLogId={currentWatchLogId}
+          setCurrentWatchLogId={setCurrentWatchLogId}
         //  getLogEntriesForWatchLog={getLogEntriesForWatchLog}
         />
       </div>}
-      {!currentWatchLogId && <div className="profile_graph_container">
+      {showGraph && <div className="profile_graph_container">
         <Graph allLogEntries={allLogEntries}
           expressions={aggregateExpressions}
              title={props.user ? props.user.username + " 's Average Reation" : "Average Reaction"}

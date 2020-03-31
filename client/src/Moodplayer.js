@@ -11,8 +11,10 @@ export default function Moodplayer(props) {
   const [youtubeId, setYoutubeId] = useState(null);
   const [showVidePlayer, setShowVideoPlayer] = useState(false);
   const [showGraph, setShowGraph] = useState(false);
+  const [graphExpressions, setGraphExpressions] = useState(null);
   const [videoIDFromDB, setvideoIDFromDB] = useState(null);
-  console.log(videoIDFromDB);
+  const [moodEmoji, setMoodEmoji] = useState(null)
+
 
   //loads the models
   useEffect(() => {
@@ -35,18 +37,20 @@ export default function Moodplayer(props) {
     fearful: "😱",
     disgusted: "🤢",
     surprised: "😲",
-    "😲":'surprised'
   };
 
-  const moodsArray = ["😐", "😡", "😁", "😢", "😱", "🤢", "😲"];
+
 
   const getNextVideo = function(mood) {
+    const moodsArray = Object.keys(moods)
+    console.log("getnextvideo", mood)
     let emotion_id = 1;
     for (let i = 0; i < moodsArray.length; i++) {
       if (moodsArray[i] === mood) {
         emotion_id += i;
       }
     }
+console.log("emotion_id" ,emotion_id)
     return axios({
       method: "GET",
       url: `/api/videos/emotions/random/${emotion_id}` // /api/videos/emotions/${emotion_id}/random/
@@ -92,12 +96,15 @@ export default function Moodplayer(props) {
   const scanMood = () => {
     // should probably take in the video ID so this can be sent to the DB
     const webcam = document.getElementById("user_camera");
-    setTimeout(() => {
       faceapi
         .detectSingleFace(webcam)
         .withFaceLandmarks()
         .withFaceExpressions()
         .then(faceapiResults => {
+
+          if(!faceapiResults) {
+            console.error("Faceapi had 0 results")
+          }
           console.log(faceapiResults);
           const neutral_percent = Math.floor(
             faceapiResults.expressions.neutral * 100
@@ -118,7 +125,7 @@ export default function Moodplayer(props) {
             faceapiResults.expressions.fearful * 100
           );
           const sad_percent = Math.floor(faceapiResults.expressions.sad * 100);
-          props.setExpressions(
+          setGraphExpressions({
             surprised_percent,
             disgusted_percent,
             neutral_percent,
@@ -126,8 +133,10 @@ export default function Moodplayer(props) {
             fearful_percent,
             angry_percent,
             happy_percent
-          );
-            console.log(props.expressions)
+          });
+
+          setShowGraph(true)
+            
             
           let currentEmotion = "neutral";
           if (faceapiResults) {
@@ -140,9 +149,9 @@ export default function Moodplayer(props) {
               }
             }
           }
-          props.setUserMood(moods[currentEmotion]);
-          getNextVideo(props.mood);
-          console.log("In scan mood", props)
+          setMoodEmoji(moods[currentEmotion]);
+          getNextVideo(currentEmotion);
+          
           // create a watch log entry or create a watchlog
           if (props.watchLogID) {
             createWatchLogEntry(
@@ -163,7 +172,7 @@ export default function Moodplayer(props) {
             });
           }
         });
-    }, 800);
+      
     // here we will do some logic to start playing youtube videos
   };
 
@@ -180,10 +189,10 @@ export default function Moodplayer(props) {
           />
         </div>
       )}
-
-      {/* <div className="userMood_emoji">
-        <span>{props.mood}</span>
-      </div> */}
+    {moodEmoji && 
+      <div className="userMood_emoji">
+        <span>{moodEmoji}</span>
+      </div>}
 
       <div className="Webcam_container">
         <Webcam
@@ -198,9 +207,8 @@ export default function Moodplayer(props) {
       </div>
       {showGraph && (
         <div className="graph_container">
-          <Graph expressions={props.expressions} />
-        </div>
-      )}
+          <Graph expressions={graphExpressions}/>
+        </div>)}
     </section>
   );
 }
