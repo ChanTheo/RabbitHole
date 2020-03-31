@@ -196,6 +196,12 @@ module.exports = knex => {
       .catch(e => "There was an error logging in")
   }
 
+
+  const getAllLogEntries = userID => {
+    return knex("log_entries")
+    .select("*")
+    .where("id", "=", userID)
+  }
   return {
     getUsers,
     registerUser,
@@ -215,6 +221,7 @@ module.exports = knex => {
     getRandomVideoFromEmotion,
     getVideosFromWatchLog,
     getLogEntryByWatchlogId,
-    validateUserLogin
+    validateUserLogin,
+    getAllLogEntries
   };
 };

@@ -7,7 +7,8 @@ module.exports = ({
   getVideosFromWatchLog,
   getLogEntryByWatchlogId,
   createWatchLogEntry,
-  getWatchLogsForUser
+  getWatchLogsForUser,
+  getAllLogEntries
 }) => {
   router.get("/", function(req, res) {
     getAllWatchLogs().then(response => res.json(response));
@@ -24,6 +25,7 @@ module.exports = ({
   // });
 
   router.get("/:watch_log_id", function(req, res) {
+    console.log
     getWatchLogByID(req.params.watch_log_id).then(response =>
       res.json(response)
     );
@@ -73,8 +75,11 @@ module.exports = ({
 
 
   router.get("/:userID/log_entries", function(req, res) {
-    getLogEntryByWatchlogId(req.params.userID).then(response =>
+    // getLogEntryByWatchlogId
+    getAllLogEntries(req.params.userID).then(response =>{
+      console.log("gettting logentries for user route", response)
       res.json(response)
+    }
     );
   });
 
